@@ -39,7 +39,7 @@ function step() {
   if (state == 'done') return;
   if (state == 'nothing' || state == 'changed') {
     matching_rules = [];
-    for (rule in rules) {
+    for (var rule in rules) {
       matches = all_matches(rule, workspace);
       if (matches.length > 0) {
         matching_rules.push([rule, matches]);
@@ -69,7 +69,7 @@ function step() {
       // handle output!
       magic = 'output';
       output_text = selected_rhs.substring(1, selected_rhs.length);
-      workspace = workspace.substring(0, matchindex) +;
+      workspace = workspace.substring(0, matchindex) +
         workspace.substring(matchindex + matchlen, workspace.length);
       matchlen = 0;
       return;
@@ -95,8 +95,9 @@ function all_matches(s, text) {
   // Returns starting indexes of all matches of 's' in the text
   var result = [];
   var lastindex = 0;
+  var i;
   do {
-    var i = text.indexOf(s, lastindex);
+    i = text.indexOf(s, lastindex);
     if (i != -1) {
       result.push(i);
     }
