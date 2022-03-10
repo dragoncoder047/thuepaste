@@ -40,4 +40,4 @@ This one shows off the random part of Thue. It contains two rules that both have
 
 ### samples/notmarkov.t
 
-This one shows the difference between Thue and another probablilistic algorithm, Markov chains. While a Markov chain given the same rules would correctly convert the asterisks into their number in Roman numerals (`XVIII`), Thue fails miserably here -- and produces obscurdities suh as `IVXIIIV` or even `IIXIIIV`.
+This one shows the difference between Thue and another probablilistic algorithm, Markov chains. While a Markov chain given the same rules would correctly convert the asterisks into their number in Roman numerals (`XVIII`), Thue fails miserably here -- and produces abscurdities such as `IVXIIIV` or even `IXIX`.
