@@ -58,7 +58,7 @@ function step() {
 function stop() {
     running = false;
     runButton.textContent = 'Run';
-    status('Paused.');
+    status(done ? 'Program halted. ' : 'Paused.');
 }
 
 function start() {
