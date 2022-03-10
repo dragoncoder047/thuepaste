@@ -22,19 +22,19 @@ class OutputThue extends Thue {
     constructor(rules, text, area) {
         super(rules, text);
         this.workspace = document.createElement('code');
-        this.output = document.createElement('pre');
+        this.outputElement = document.createElement('pre');
         area.append(this.workspace, this.output);
 
         this.init(this.text);
     }
     init(text) {
-        this.output.textContent = '';
+        this.outputElement.textContent = '';
         this.workspace.setAttribute('class', '');
         this.workspace.textContent = text;
         this.text = text;
     }
     output(text) {
-        this.output.textContent += text;
+        this.outputElement.textContent += text;
     }
     input() {
         return prompt(':::');
