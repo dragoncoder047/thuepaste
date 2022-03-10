@@ -44,7 +44,10 @@ async function init(filename=false) {
 }
 
 function step() {
-    if (!running) return;
+    if (!running) {
+        stop(); // redundantly updates the running but it also updates the button.
+        return;
+    }
     running = !thue.tick();
     requestAnimationFrame(step);
 }
