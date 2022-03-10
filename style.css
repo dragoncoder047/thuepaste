@@ -6,7 +6,7 @@
 
 #statusbar.error {
   color: red;
-  background-color: yellow;
+  background: yellow;
 }
 
 #statusbar.done, #thue pre.done {
@@ -14,8 +14,5 @@
 }
 
 #thue code {
-  color: black;
   background: #ffffee;
-  font-family: monospace;
-  padding: 0em 0.2em;
 }
