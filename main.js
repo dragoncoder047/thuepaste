@@ -62,6 +62,7 @@ function stop() {
 }
 
 function start() {
+    if (done) init();
     running = true;
     runButton.textContent = 'Pause';
     status('Running...');
