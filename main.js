@@ -56,8 +56,8 @@ function step() {
     if (running) requestAnimationFrame(step);
 }
 
-function stop() { running = false; runButton.textContent = 'Run'; }
-function start() { running = true; runButton.textContent = 'Pause'; step(); }
+function stop() { running = false; runButton.textContent = 'Run'; status('Paused.'); }
+function start() { running = true; runButton.textContent = 'Pause'; status('Running...'); step(); }
 
 function stepButtonClicked() { stop(); step(); }
 
