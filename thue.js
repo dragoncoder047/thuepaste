@@ -11,14 +11,9 @@ class Thue {
             }
         }
         var [rule, match] = randomChoice(matches);
-        var oldtext = this.text;
-        this.text = rule.applyMatch(oldtext, match, this);
-        return {
-            rule,
-            match,
-            oldtext,
-            newtext: this.text,
-        };
+        var oldText = this.text;
+        this.text = rule.applyMatch(oldText, match, this);
+        return this.text;
     }
 }
 
@@ -28,9 +23,14 @@ class OutputThue {
         this.workspace = document.createElement('code');
         this.output = document.createElement('pre');
         area.append(this.workspace, this.output);
-        
-        this.state = '';
-        this.lastStep = null;
+
+        this.init(this.text);
+    }
+    init(text) {
+        this.output.textContent = '';
+        this.workspace.setAttribute('class', '');
+        this.workspace.textContent = text;
+        this.text = text;
     }
     output(text) {
         this.output.textContent += text;
@@ -38,15 +38,15 @@ class OutputThue {
     input() {
         return prompt(':::');
     }
-    show() {
-        if (!this.lastStep) {
-            this.lastStep = this.stepOnce();
-            this.state = '';
+    tick() {
+        var oldText = this.text;
+        this.lastStep = this.stepOnce();
+        this.workspace.textContent = this.text;
+        if (this.text === oldText) {
+            this.workspace.classList.add('done');
+            return true;
         }
-        switch (this.state) {
-            case '':
-                this; ///////////////////////////////////////////////////////////////////////////
-        }
+        return false;
     }
 }
 
