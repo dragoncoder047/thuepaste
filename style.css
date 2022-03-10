@@ -3,16 +3,16 @@
     padding: 1em;
 }
 
-#statusbar.error {
+#status.error {
     color: red;
     background: yellow;
 }
 
-#statusbar.done, #thue pre.done {
+#status.done, #thue pre.done {
     opacity: 80%;
 }
 
 #thue code {
-    background: #222200;
+    background: #111100;
     border: none;
 }
