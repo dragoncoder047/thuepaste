@@ -1,3 +1,5 @@
+window.onerror = window.alert;
+
 // This file mostly copied from https://jsfiddle.net/ao6egwh9/3/ (I don't know who made it)
 
 // These global variables keep the state of the code:
@@ -251,7 +253,3 @@ _*::=*_Y
 @_*...............................|`;
 
 load("hello");
-
-
-// some debugging
-window.onerror = window.alert;
