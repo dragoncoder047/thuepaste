@@ -1,37 +1,19 @@
-td {
-  vertical-align: top;
-}
 
-th {
-  text-align: left;
-}
-
-#output div {
+#thue pre, #thue code {
   margin-left: 1em;
   font-family: monospace;
 }
 
-#output {
-  color: black;
-  background: white;
-  font-family: monospace;
-  padding: 0em 0.2em;
+#statusbar.error {
+  color: red;
+  background-color: yellow;
 }
 
-td {
-  vertical-align: top;
+#statusbar.done, #thue pre.done {
+  opacity: 80%;
 }
 
-th {
-  text-align: left;
-}
-
-#workspace div {
-  margin-left: 1em;
-  font-family: monospace;
-}
-
-#workspace {
+#thue code {
   color: black;
   background: #ffffee;
   font-family: monospace;
