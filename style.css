@@ -1,18 +1,18 @@
 
 #thue pre, #thue code {
-  margin-left: 1em;
-  font-family: monospace;
+    padding: 1em;
 }
 
 #statusbar.error {
-  color: red;
-  background: yellow;
+    color: red;
+    background: yellow;
 }
 
 #statusbar.done, #thue pre.done {
-  opacity: 80%;
+    opacity: 80%;
 }
 
 #thue code {
-  background: #ffffee;
+    background: #222200;
+    border: none;
 }
