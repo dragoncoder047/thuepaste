@@ -94,7 +94,7 @@ function all_matches(s, text) {
   var result = [];
   var lastindex = 0;
   do {
-    i = text.indexOf(s, lastindex);
+    var i = text.indexOf(s, lastindex);
     if (i != -1) {
       result.push(i);
     }
@@ -105,10 +105,9 @@ function all_matches(s, text) {
 
 function split_rule(text) {
   // Splits a rule into two parts at the '::=' separator
-  i = text.indexOf('::=');
+  var i = text.indexOf('::=');
   if (i == -1) {
-    // malformed rule
-    return undefined;
+    throw 'malformed rule';
   }
   return [text.substr(0, i), text.substr(i + 3, text.length)];
 
@@ -166,13 +165,14 @@ function do_step() {
 }
 
 function do_run() {
-  while (state != 'done') {
+  if (state != 'done') {
     step();
     if (output_text != '') {
       output(output_text);
     }
+    show_workspace();
+    requestAnimationFrame(do_run);
   }
-  show_workspace();
 }
 
 function output(line) {
@@ -191,7 +191,7 @@ function show_workspace() {
     } else {
       color = '#0000ff';
     }
-    result = '<font color = "' + color + '">' + workspace + '</font>';
+    result = `<span style"color: ${color}">${workspace}</font>`;
   } else {
     if (state == 'selected') {
       color = "#ff0000";
@@ -203,7 +203,7 @@ function show_workspace() {
       }
     }
     result = workspace.substring(0, matchindex);
-    result += '<font color="' + color + '">';
+    result += `<span style="color: ${color}">`;
     if (magic == '') {
       result += workspace.substr(matchindex, matchlen);
     } else if (magic == 'none') {
@@ -211,7 +211,7 @@ function show_workspace() {
     } else if (magic == 'output') {
       result += '(O)';
     }
-    result += '</font>';
+    result += '</span>';
     result += workspace.substr(matchindex + matchlen, workspace.length - 1);
   }
   result += '&nbsp;';
@@ -223,32 +223,31 @@ function load(name) {
   document.getElementById("code").value = samples[name];
   init();
 }
+
 // Sample programs follow
 
 samples = {};
 
-samples['hello'] =
-  '@::=~Hello world!\n\
-::=\n\
-@';
+samples.hello = `@::=~Hello world!
+::=
+@`;
 
-samples['sierpinski'] =
-  "#::=Sierpinski's triangle, HTML version\n\
-#::=By Nikita Ayzikovsky\n\
-X::=~&nbsp;\n\
-Y::=~*\n\
-Z::=~<br>\n\
-_.::=._X\n\
-_*::=*_Y\n\
-._|::=.Z-|\n\
-*_|::=Z\n\
-..-::=.-.\n\
-**-::=*-.\n\
-*.-::=*-*\n\
-.*-::=.-*\n\
-@.-::=@_.\n\
-@*-::=@_*\n\
-::=\n\
-@_*...............................|";
+samples.sierpinski = `#::=Sierpinski's triangle, HTML version
+#::=By Nikita Ayzikovsky
+X::=~&nbsp;
+Y::=~*
+Z::=~<br>
+_.::=._X
+_*::=*_Y
+._|::=.Z-|
+*_|::=Z
+..-::=.-.
+**-::=*-.
+*.-::=*-*
+.*-::=.-*
+@.-::=@_.
+@*-::=@_*
+::=
+@_*...............................|`;
 
 load("hello");
