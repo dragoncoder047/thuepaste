@@ -1,0 +1,39 @@
+td {
+  vertical-align: top;
+}
+
+th {
+  text-align: left;
+}
+
+#output div {
+  margin-left: 1em;
+  font-family: monospace;
+}
+
+#output {
+  color: black;
+  background: white;
+  font-family: monospace;
+  padding: 0em 0.2em;
+}
+
+td {
+  vertical-align: top;
+}
+
+th {
+  text-align: left;
+}
+
+#workspace div {
+  margin-left: 1em;
+  font-family: monospace;
+}
+
+#workspace {
+  color: black;
+  background: #ffffee;
+  font-family: monospace;
+  padding: 0em 0.2em;
+}
