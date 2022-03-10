@@ -24,6 +24,6 @@ pre#code {
     max-height: 30%;
     max-width: 99%;
     min-width: 40%;
-    resize: horizontal;
+    resize: both;
     overflow: auto;
 }
