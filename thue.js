@@ -5,8 +5,8 @@ class Thue {
     }
     stepOnce() {
         var matches = [];
-        for (var r in this.rules) {
-            for (var m in r.findMatches(this.text)) {
+        for (var r of this.rules) {
+            for (var m of r.findMatches(this.text)) {
                 matches.push([r, m]);
             }
         }
@@ -101,10 +101,10 @@ function randomChoice(a) {
 
 
 function parse(code, ruleClasses) {
-    var [rawRules, initText] = code.split('\n::=\n', 1)
+    var [rawRules, initText] = code.split('\n::=\n', 1);
     if (!initText) throw 'No rules';
     var lines = rawRules.split(/\r\n|\r|\n/);
-    var rules = []
+    var rules = [];
     while (lines) {
         var line = lines.shift();
         for (var i = 0; i < ruleClasses.length; i++) {
