@@ -36,7 +36,8 @@ async function init(filename=false) {
     } else
         text = codeBox.value;
     status('Parsing...');
-    var [rules, init] = parse(text, [OutputRule, InputRule, Rule]);
+    try{
+    var [rules, init] = parse(text, [OutputRule, InputRule, Rule]); }catch(e){status('Error: ' + e, 'error');return;}
     thue.init(init);
     thue.rules = rules;
     status('Press RUN.');
