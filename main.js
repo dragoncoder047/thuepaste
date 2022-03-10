@@ -61,15 +61,20 @@ function toggleStartStop() {
         start();
 }
 
+function erro(e) {
+    stop();
+    status('Error: ' + e, 'error');
+}
+
 function wrapWithTryCatch(fun) {
     return function(...args) {
         try {
             var ret = fun(...args);
             if (ret instanceof Promise) {
-                ret.catch(e => status('Error: ' + e, 'error'));
+                ret.catch(erro);
             }
         } catch(e) {
-            status('Error: ' + e, 'error');
+            erro(e);
         }
     }
 }
