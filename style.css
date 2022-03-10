@@ -22,7 +22,8 @@ header p a {
 pre#code {
     border: 1px yellow!important;
     max-height: 30%;
-    max-width: 100%;
+    max-width: 90%;
+    min-width: 40%;
     resize: horizontal;
     overflow: auto;
 }
