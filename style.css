@@ -20,7 +20,7 @@ header p a {
 }
 
 pre#code {
-    border: none;
+    border: 1px yellow;
     max-height: 50%;
     resize: horizontal;
     overflow: auto;
