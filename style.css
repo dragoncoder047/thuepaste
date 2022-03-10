@@ -20,8 +20,9 @@ header p a {
 }
 
 pre#code {
-    border: 1px yellow;
-    max-height: 50%;
+    border: 1px yellow!important;
+    max-height: 30%;
+    max-width: 100%;
     resize: horizontal;
     overflow: auto;
 }
