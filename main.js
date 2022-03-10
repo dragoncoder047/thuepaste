@@ -3,7 +3,7 @@ function $(sel) { return document.querySelector(sel); }
 var samplesSelector = $('#samples');
 var statusBar = $('#status');
 var codeBox = $('#code');
-var loadButton = $('#load')
+var loadButton = $('#load');
 var runButton = $('#run');
 var stepButton = $('#step');
 var thueArea = $('#thue');
@@ -37,9 +37,9 @@ async function init(filename=false) {
         text = codeBox.value;
     status('Parsing...');
     var [rules, init] = parse(text, [OutputRule, InputRule, Rule]);
-    thue.init(text);
+    thue.init(init);
     thue.rules = rules;
-    status('Press RUN.')
+    status('Press RUN.');
 }
 
 function step() {
@@ -49,7 +49,7 @@ function step() {
 }
 
 function stop() { running = false; runButton.textContent = 'Run'; }
-function start() { running = true; runButton.textContent = 'Pause'; step() }
+function start() { running = true; runButton.textContent = 'Pause'; step(); }
 
 function stepButtonClicked() { stop(); step(); }
 
