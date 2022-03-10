@@ -14,3 +14,14 @@
     background: #111100;
     border: none;
 }
+
+header p a {
+    color: var(--color-footer);
+}
+
+#code {
+    border: none;
+    max-height: 50%;
+    resize: horizontal;
+    overflow: scroll;
+}
