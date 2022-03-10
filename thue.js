@@ -1,9 +1,9 @@
 class Thue {
     constructor(rules, text) {
         this.rules = rules || [];
-        this.workspace = text || '';
+        this.text = text || '';
     }
-    step_once() {
+    stepOnce() {
         var matches = [];
         for (var r in this.rules) {
             for (var m in r.findMatches(this.text)) {
@@ -19,6 +19,34 @@ class Thue {
             oldtext,
             newtext: this.text,
         };
+    }
+}
+
+class OutputThue {
+    constructor(rules, text, area) {
+        super(rules, text);
+        this.workspace = document.createElement('code');
+        this.output = document.createElement('pre');
+        area.append(this.workspace, this.output);
+        
+        this.state = '';
+        this.lastStep = null;
+    }
+    output(text) {
+        this.output.textContent += text;
+    }
+    input() {
+        return prompt(':::');
+    }
+    show() {
+        if (!this.lastStep) {
+            this.lastStep = this.stepOnce();
+            this.state = '';
+        }
+        switch (this.state) {
+            case '':
+                this; ///////////////////////////////////////////////////////////////////////////
+        }
     }
 }
 
@@ -52,7 +80,7 @@ class InputRule extends Rule {
         if (this.right !== ':::') throw 'not input';
     }
     applyMatch(text, matchIndex, thue) {
-        return text.substring(0, matchIndex) + prompt(':::') + text.substring(matchIndex + this.left.length, text.length);
+        return text.substring(0, matchIndex) + thue.input() + text.substring(matchIndex + this.left.length, text.length);
     }
 }
 
