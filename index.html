@@ -6,15 +6,21 @@
     </head>
     <body>
         <h1>Thue</h1>
-        Sample programs: <select id="samples"></select>
+        <p>
+            Sample programs:
+            <select id="samples">
+                <option value="samples/hello.t">HelloWorld</option>
+                <option value="samples/sierpinski.t">Sierpinski</option>
+                <option value="samples/quine.t">Quine</option>
+            </select>
+        </p>
         <textarea rows="15" cols="70" id="code"></textarea><br>
-        <p id="workspace">&nbsp;</p>
         <p>
             <button onclick="init()">Update</button>
             <button onclick="do_run()">Run</button>
             <button onclick="do_step()">Step</button>
         </p>
-        <pre id="output"></pre>
+        <div id="thue"></div>
         <script src="thue.js"></script>
         <script src="main.js"></script>
     </body>
