@@ -19,7 +19,7 @@ header p a {
     color: var(--color-footer);
 }
 
-#code {
+pre#code {
     border: none;
     max-height: 50%;
     resize: horizontal;
