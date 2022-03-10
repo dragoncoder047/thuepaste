@@ -34,7 +34,7 @@ class OutputThue extends Thue {
         this.text = text;
     }
     output(text) {
-        this.outputElement.textContent += text;
+        this.outputElement.innerHTML += text;
     }
     input() {
         return prompt(':::');
