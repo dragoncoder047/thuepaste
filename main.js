@@ -37,8 +37,7 @@ async function init(filename=false) {
     } else
         text = codeBox.value;
     status('Parsing...');
-    try{
-    var [rules, init] = parse(text, [OutputRule, InputRule, Rule]); }catch(e){status('Error: ' + e, 'error');return;}
+    var [rules, init] = parse(text, [OutputRule, InputRule, Rule]);
     thue.init(init);
     thue.rules = rules;
     status('Press RUN.');
@@ -56,8 +55,18 @@ function step() {
     if (running) requestAnimationFrame(step);
 }
 
-function stop() { running = false; runButton.textContent = 'Run'; status('Paused.'); }
-function start() { running = true; runButton.textContent = 'Pause'; status('Running...'); step(); }
+function stop() {
+    running = false;
+    runButton.textContent = 'Run';
+    status('Paused.');
+}
+
+function start() {
+    running = true;
+    runButton.textContent = 'Pause';
+    status('Running...');
+    step();
+}
 
 function stepButtonClicked() { stop(); step(); }
 
