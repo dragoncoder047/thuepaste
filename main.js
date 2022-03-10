@@ -11,6 +11,7 @@ var thueArea = $('#thue');
 var thue = new OutputThue([], '', thueArea);
 
 var running = false;
+var done = false;
 
 samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSelector.value)));
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
@@ -41,15 +42,18 @@ async function init(filename=false) {
     thue.init(init);
     thue.rules = rules;
     status('Press RUN.');
+    done = false;
 }
 
 function step() {
-    if (!running) {
+    if (done) return;
+    done = thue.tick();
+    if (done) {
+        stop();
         status('Program halted.', 'done');
         return;
     }
-    running = !thue.tick();
-    requestAnimationFrame(step);
+    if (running) requestAnimationFrame(step);
 }
 
 function stop() { running = false; runButton.textContent = 'Run'; }
