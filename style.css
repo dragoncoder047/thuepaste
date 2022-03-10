@@ -23,5 +23,5 @@ pre#code {
     border: none;
     max-height: 50%;
     resize: horizontal;
-    overflow: scroll;
+    overflow: auto;
 }
