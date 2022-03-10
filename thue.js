@@ -37,7 +37,7 @@ class OutputThue extends Thue {
         this.outputElement.innerHTML += text;
     }
     input() {
-        return prompt(':::');
+        return prompt('input please');
     }
     tick() {
         var oldText = this.text;
