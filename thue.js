@@ -10,6 +10,7 @@ class Thue {
                 matches.push([r, m]);
             }
         }
+        if (matches.length === 0) return;
         var [rule, match] = randomChoice(matches);
         var oldText = this.text;
         this.text = rule.applyMatch(oldText, match, this);
@@ -100,13 +101,15 @@ function randomChoice(a) {
 }
 
 
-function parse(code, ruleClasses) {
-    var [rawRules, initText] = code.split('\n::=\n', 1);
-    if (!initText) throw 'No rules';
-    var lines = rawRules.split(/\r\n|\r|\n/);
-    var rules = [];
+function parse(code, ruleClasses, endOfRules='::=') {
+    var lines = code.split(/\r\n|\r|\n/);
+    var rules = [], text = '';
     while (lines) {
         var line = lines.shift();
+        if (line === endOfRules) {
+            text = lines.join('\n');
+            break;
+        }
         for (var i = 0; i < ruleClasses.length; i++) {
             var klass = ruleClasses[i];
             try {
@@ -118,5 +121,6 @@ function parse(code, ruleClasses) {
             }
         }
     }
-    return [rules, initText];
+    if (!rules) throw 'no rules';
+    return [rules, text];
 }
