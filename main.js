@@ -45,7 +45,7 @@ async function init(filename=false) {
 
 function step() {
     if (!running) {
-        stop(); // redundantly updates the running but it also updates the button.
+        status('Program halted.', 'done');
         return;
     }
     running = !thue.tick();
