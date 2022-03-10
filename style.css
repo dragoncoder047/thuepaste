@@ -1,15 +1,13 @@
-
 #thue pre, #thue code {
     padding: 1em;
 }
 
 #status.error {
     color: red;
-    background: yellow;
 }
 
 #status.done, #thue pre.done {
-    opacity: 80%;
+    color: green;
 }
 
 #thue code {
