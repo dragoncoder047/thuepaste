@@ -17,7 +17,7 @@ class Thue {
     }
 }
 
-class OutputThue {
+class OutputThue extends Thue {
     constructor(rules, text, area) {
         super(rules, text);
         this.workspace = document.createElement('code');
