@@ -23,7 +23,7 @@ class OutputThue extends Thue {
         super(rules, text);
         this.workspace = document.createElement('code');
         this.outputElement = document.createElement('pre');
-        area.append(this.workspace, this.output);
+        area.append(this.workspace, this.outputElement);
 
         this.init(this.text);
     }
