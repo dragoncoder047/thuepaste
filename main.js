@@ -1,115 +1,116 @@
-// This file copied from https://jsfiddle.net/ao6egwh9/3/ (I don't know who made it)
+// This file mostly copied from https://jsfiddle.net/ao6egwh9/3/ (I don't know who made it)
 
 // These global variables keep the state of the code:
 // Execution doesn't influence them, only the user
 
-rules = {}
-dataspace = ""
+var
+rules = {},
+dataspace = "",
 
 // These global variables keep the state of the execution:
 
-workspace = ""
-state = 'nothing'
-magic = ''
-matchindex = 0
-matchlen = 0
-selected_rule = ''
-output_text = ''
+workspace = "",
+state = 'nothing',
+magic = '',
+matchindex = 0,
+matchlen = 0,
+selected_rule = '',
+output_text = '';
 
 // Code follows.
 
 function init_execution() {
-  workspace = dataspace
-  state = 'nothing'
-  magic = ''
-  matchindex = 0
-  matchlen = 0
-  selected_rule = ''
+  workspace = dataspace;
+  state = 'nothing';
+  magic = '';
+  matchindex = 0;
+  matchlen = 0;
+  selected_rule = '';
 }
 
 function step() {
   // Steps once through the execution. Modifies
   // the globals which keep the state of the execution.
   // Doesn't display anything.
-  output_text = ''
-  magic = ''
+  output_text = '';
+  magic = '';
   if (state == 'done') return;
   if (state == 'nothing' || state == 'changed') {
-    matching_rules = []
+    matching_rules = [];
     for (rule in rules) {
-      matches = all_matches(rule, workspace)
+      matches = all_matches(rule, workspace);
       if (matches.length > 0) {
-        matching_rules.push([rule, matches])
+        matching_rules.push([rule, matches]);
       }
     }
     if (matching_rules.length == 0) {
-      state = 'done'
-      return
+      state = 'done';
+      return;
     }
-    var selected = random_choice(matching_rules)
-    selected_rule = selected[0]
-    matchindex = random_choice(selected[1])
-    matchlen = selected_rule.length
-    state = 'selected'
-    return
+    var selected = random_choice(matching_rules);
+    selected_rule = selected[0];
+    matchindex = random_choice(selected[1]);
+    matchlen = selected_rule.length;
+    state = 'selected';
+    return;
   } else if (state == 'selected') {
-    state = 'changed'
-    var selected_rhs = random_choice(rules[selected_rule])
+    state = 'changed';
+    var selected_rhs = random_choice(rules[selected_rule]);
     if (selected_rhs == '') {
-      magic = 'empty'
+      magic = 'empty';
       workspace = workspace.substring(0, matchindex) +
-        workspace.substring(matchindex + matchlen, workspace.length)
-      matchlen = 0
-      return
+        workspace.substring(matchindex + matchlen, workspace.length);
+      matchlen = 0;
+      return;
     }
     if (selected_rhs.charAt(0) == '~') {
       // handle output!
-      magic = 'output'
-      output_text = selected_rhs.substring(1, selected_rhs.length)
-      workspace = workspace.substring(0, matchindex) +
-        workspace.substring(matchindex + matchlen, workspace.length)
-      matchlen = 0
-      return
+      magic = 'output';
+      output_text = selected_rhs.substring(1, selected_rhs.length);
+      workspace = workspace.substring(0, matchindex) +;
+        workspace.substring(matchindex + matchlen, workspace.length);
+      matchlen = 0;
+      return;
     }
     if (selected_rhs == ':::') {
       // handle input!
-      selected_rhs = prompt("Gimme a string!")
+      selected_rhs = prompt("Gimme a string!");
     }
     workspace = workspace.substring(0, matchindex) + selected_rhs +
-      workspace.substring(matchindex + matchlen, workspace.length)
-    matchlen = selected_rhs.length
-    return
+      workspace.substring(matchindex + matchlen, workspace.length);
+    matchlen = selected_rhs.length;
+    return;
   }
 }
 
 function random_choice(a) {
   // Returns a random element from an array
-  return a[Math.floor(Math.random() * a.length)]
+  return a[Math.floor(Math.random() * a.length)];
 }
 
 
 function all_matches(s, text) {
   // Returns starting indexes of all matches of 's' in the text
-  var result = []
-  var lastindex = 0
+  var result = [];
+  var lastindex = 0;
   do {
     i = text.indexOf(s, lastindex);
     if (i != -1) {
-      result.push(i)
+      result.push(i);
     }
-    lastindex = i + 1
-  } while (i != -1)
-  return result
+    lastindex = i + 1;
+  } while (i != -1);
+  return result;
 }
 
 function split_rule(text) {
   // Splits a rule into two parts at the '::=' separator
-  i = text.indexOf('::=')
+  i = text.indexOf('::=');
   if (i == -1) {
     // malformed rule
-    return undefined
+    return undefined;
   }
-  return [text.substr(0, i), text.substr(i + 3, text.length)]
+  return [text.substr(0, i), text.substr(i + 3, text.length)];
 
 }
 
@@ -119,10 +120,9 @@ function update_state(text) {
   var lines = text.split(/(\r\n|\r|\n)/);
   var datalines = [];
   var doing_rules = true;
-  rules = {}
-  dataspace = ""
-  for (l in lines) {
-    line = lines[l]
+  rules = {};
+  dataspace = "";
+  for (var line of lines) {
     if (line.match(/^\s*$/)) {
       // empty line
       continue;
@@ -142,7 +142,7 @@ function update_state(text) {
       datalines.push(line);
     }
   }
-  dataspace = datalines.join('\n')
+  dataspace = datalines.join('\n');
 }
 
 
@@ -150,29 +150,29 @@ function update_state(text) {
 
 
 function init() {
-  var code = document.getElementById("code").value
-  update_state(code)
-  clear_output()
-  init_execution()
-  show_workspace()
+  var code = document.getElementById("code").value;
+  update_state(code);
+  clear_output();
+  init_execution();
+  show_workspace();
 }
 
 function do_step() {
-  step()
-  show_workspace()
+  step();
+  show_workspace();
   if (output_text != '') {
-    output(output_text)
+    output(output_text);
   }
 }
 
 function do_run() {
   while (state != 'done') {
-    step()
+    step();
     if (output_text != '') {
-      output(output_text)
+      output(output_text);
     }
   }
-  show_workspace()
+  show_workspace();
 }
 
 function output(line) {
@@ -184,53 +184,53 @@ function clear_output() {
 }
 
 function show_workspace() {
-  ws = document.getElementById("workspace")
+  ws = document.getElementById("workspace");
   if (state == 'done' || state == 'nothing') {
     if (state == 'done') {
-      color = '#555555'
+      color = '#555555';
     } else {
-      color = '#0000ff'
+      color = '#0000ff';
     }
-    result = '<font color = "' + color + '">' + workspace + '</font>'
+    result = '<font color = "' + color + '">' + workspace + '</font>';
   } else {
     if (state == 'selected') {
-      color = "#ff0000"
+      color = "#ff0000";
     } else {
       if (magic == '') {
-        color = "#00bb00"
+        color = "#00bb00";
       } else {
-        color = "#bb00bb"
+        color = "#bb00bb";
       }
     }
-    result = workspace.substring(0, matchindex)
-    result += '<font color="' + color + '">'
+    result = workspace.substring(0, matchindex);
+    result += '<font color="' + color + '">';
     if (magic == '') {
-      result += workspace.substr(matchindex, matchlen)
+      result += workspace.substr(matchindex, matchlen);
     } else if (magic == 'none') {
-      result += '()'
+      result += '()';
     } else if (magic == 'output') {
-      result += '(O)'
+      result += '(O)';
     }
-    result += '</font>'
-    result += workspace.substr(matchindex + matchlen, workspace.length - 1)
+    result += '</font>';
+    result += workspace.substr(matchindex + matchlen, workspace.length - 1);
   }
-  result += '&nbsp;'
-  ws.innerHTML = result
+  result += '&nbsp;';
+  ws.innerHTML = result;
 }
 
 function load(name) {
   // loads sample code
-  document.getElementById("code").value = samples[name]
-  init()
+  document.getElementById("code").value = samples[name];
+  init();
 }
 // Sample programs follow
 
-samples = {}
+samples = {};
 
 samples['hello'] =
   '@::=~Hello world!\n\
 ::=\n\
-@'
+@';
 
 samples['sierpinski'] =
   "#::=Sierpinski's triangle, HTML version\n\
@@ -249,6 +249,6 @@ _*::=*_Y\n\
 @.-::=@_.\n\
 @*-::=@_*\n\
 ::=\n\
-@_*...............................|"
+@_*...............................|";
 
-load("hello")
+load("hello");
