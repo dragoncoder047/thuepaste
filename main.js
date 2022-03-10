@@ -107,7 +107,7 @@ function split_rule(text) {
   // Splits a rule into two parts at the '::=' separator
   var i = text.indexOf('::=');
   if (i == -1) {
-    throw 'malformed rule';
+    return undefined; // malformed
   }
   return [text.substr(0, i), text.substr(i + 3, text.length)];
 
