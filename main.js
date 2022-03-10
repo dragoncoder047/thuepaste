@@ -17,6 +17,8 @@ loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
 runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
 stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
 
+init('samples/hello.t').then(() => status('Ready.'));
+
 function status(text, cls='') { statusBar.setAttribute('class', cls); statusBar.textContent = text; }
 
 async function init(filename=false) {
