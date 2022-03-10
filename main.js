@@ -12,10 +12,10 @@ var thue = new OutputThue([], '', thueArea);
 
 var running = false;
 
-samplesSelector.addEventListener('change', e => init(samplesSelector.value));
-loadButton.addEventListener('click', e => init());
-runButton.addEventListener('click', e => toggleStartStop());
-stepButton.addEventListener('click', e => stepButtonClicked());
+samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSelector.value)));
+loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
+runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
+stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
 
 function status(text, cls='') { statusBar.setAttribute('class', cls); statusBar.textContent = text; }
 
@@ -56,4 +56,14 @@ function toggleStartStop() {
         stop();
     else 
         start();
+}
+
+function wrapWithTryCatch(fun) {
+    return function(...args) {
+        try {
+            fun(...args);
+        } catch(e) {
+            status('Error: ' + e, 'error');
+        }
+    }
 }
