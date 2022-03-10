@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+    </head>
+    <body>
+        <h1>Thue</h1>
+        Sample programs: 
+        <a onclick="load('hello'); return false;" href="#">hello world</a>,
+        <a onclick="load('sierpinski'); return false;" href="#">Sierpinski's triangle</a><br>
+        <textarea rows="15" cols="70" id="code"></textarea><br>
+        <div id="workspace">&nbsp;</div><br>
+        <button onclick="init()">Update</button>
+        <button onclick="do_run()">Run</button>
+        <button onclick="do_step()">Step</button>
+        <br>
+        <br>
+        <div id="output"></div>
+        <br>
+        <script src="main.js"></script>
+    </body>
+</html>
