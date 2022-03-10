@@ -6,26 +6,28 @@
         <link rel="stylesheet" href="/static/css/main.css" />
     </head>
     <body>
-        <h1>Thue</h1>
-        <p>
-            Sample programs:
-            <select id="samples" name="samples">
-                <option value="samples/hello.t" selected>Hello World</option>
-                <option value="samples/sierpinski.t">Sierpinski</option>
-                <option value="samples/quine.t">Quine</option>
-                <option value="samples/incany.t">Binary Increment</option>
-                <option value="samples/nondeterministic.t">Nondeterminism</option>
-            </select>
-        </p>
-        <textarea rows="15" cols="70" id="code"></textarea>
-        <p id="status">Loading...</p>
-        <p>
-            <button id="load">Load</button>
-            <button id="run">Run</button>
-            <button id="step">Step</button>
-        </p>
-        <div id="thue"></div>
-        <script src="thue.js"></script>
-        <script src="main.js"></script>
+        <main>
+            <h1>Thue</h1>
+            <p>
+                Sample programs:
+                <select id="samples" name="samples">
+                    <option value="samples/hello.t" selected>Hello World</option>
+                    <option value="samples/sierpinski.t">Sierpinski</option>
+                    <option value="samples/quine.t">Quine</option>
+                    <option value="samples/incany.t">Binary Increment</option>
+                    <option value="samples/nondeterministic.t">Nondeterminism</option>
+                </select>
+            </p>
+            <textarea rows="15" cols="70" id="code"></textarea>
+            <p id="status">Loading...</p>
+            <p>
+                <button id="load">Load</button>
+                <button id="run">Run</button>
+                <button id="step">Step</button>
+            </p>
+            <div id="thue"></div>
+            <script src="thue.js"></script>
+            <script src="main.js"></script>
+        </main>
     </body>
 </html>
