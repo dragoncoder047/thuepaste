@@ -251,3 +251,7 @@ _*::=*_Y
 @_*...............................|`;
 
 load("hello");
+
+
+// some debugging
+window.onerror = window.alert;
