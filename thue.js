@@ -100,23 +100,23 @@ function randomChoice(a) {
 }
 
 
-function parse(text, ruleClasses) {
-    var lines = text.split(/\r\n|\r|\n/);
+function parse(code, ruleClasses) {
+    var [rawRules, initText] = code.split('\n::=\n', 1)
+    if (!initText) throw 'No rules';
+    var lines = rawRules.split(/\r\n|\r|\n/);
     var rules = []
     while (lines) {
         var line = lines.shift();
-        var worked = false;
-        for (var klass in ruleClasses) {
+        for (var i = 0; i < ruleClasses.length; i++) {
+            var klass = ruleClasses[i];
             try {
                 rules.push(new klass(line));
-                worked = true;
                 break;
             } catch (e) {
+                if (i + 1 === ruleClasses.length) throw e;
                 continue;
             }
         }
-        if (!worked)
-            return [rules, [line].concat(lines).join('\n')];
     }
-    return [rules, ''];
+    return [rules, initText];
 }
