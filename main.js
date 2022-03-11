@@ -33,9 +33,9 @@ async function init(filename=false) {
             return;
         }
         text = await resp.text();
-        codeBox.textContent = text;
+        codeBox.value = text;
     } else
-        text = codeBox.textContent;
+        text = codeBox.value;
     status('Parsing...');
     var [rules, init] = parse(text, [OutputRule, InputRule, Rule]);
     thue.init(init);
