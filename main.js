@@ -85,6 +85,8 @@ function determineHalts() {
     var chance = halts(thue);
     if (chance === 1.0)
         setTimeout(() => status('Program will definitely halt.', 'done'), 10);
+    else if (chance === 0.0)
+        setTimeout(() => status('Program will never halt.', 'done'), 10);
     else
         setTimeout(() => status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done'), 10);
 }
