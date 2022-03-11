@@ -3,11 +3,18 @@
 }
 
 #status.done, #thue pre.done {
-    color: green;
+    color: lime;
+}
+
+#status.computing {
+    color: blue;
 }
 
 #thue code {
     border: 1px dashed lime;
+    padding: 1em;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 header p a {
