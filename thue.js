@@ -12,8 +12,8 @@ class Thue {
         }
         return matches;
     }
-    apply(rule, match, text) {
-        return rule.applyMatch(text, match, this);
+    apply(rule, match, text, silent = false) {
+        return rule.applyMatch(text, match, this, silent);
     }
     stepOnce() {
         var matches = this.matches(this.text);
