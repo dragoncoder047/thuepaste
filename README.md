@@ -14,7 +14,7 @@ Thue is an esoteric programming language invented by John Colagioia in early 200
 
 Traditionally Thue has also included two 'special' rules for input and output. For input, a right side of `:::` (three colons) will not be replaced with that, but with a string of input from the user. For output, any right side starting with `~` (tilde) will instead be replaced with nothing, and everything after the tilde printed.
 
-For all the nitty gritty, have a look at the [wikipedia article](https://en.wikipedia.org/wiki/Thue_(programming_language)).
+For all the nitty gritty, have a look at the [wikipedia article](https://en.wikipedia.org/wiki/Thue_(programming_language)) for the abstract mathematical Chomsky-heiarchy-whatever stuff, or [John Colagioia's manual](https://github.com/jcolag/Thue) for a lttle more on the syntax.
 
 ## The Examples
 
