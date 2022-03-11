@@ -18,7 +18,7 @@ samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSel
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
 runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
 stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
-haltsButton.addEventListener('click', wrapWithTryCatch(e => determineHalts()));
+haltsButton.addEventListener('click', wrapWithTryCatch(async e => determineHalts()));
 
 init('samples/hello.t').then(() => status('Ready.'));
 
@@ -80,9 +80,9 @@ function toggleStartStop() {
         start();
 }
 
-function determineHalts() {
+async function determineHalts() {
     status('Computing...', 'computing');
-    var chance = halts(thue);
+    var chance = await new Promise(r => r(halts(thue)));
     if (chance === 1.0)
         status('Program will definitely halt.', 'done');
     else
