@@ -12,7 +12,9 @@
 
 #thue code {
     border: 1px dashed lime;
-    padding: 1em;
+    padding: 0.5em;
+    margin: 0.5em;
+    display: block;
     overflow-wrap: break-word;
     word-break: break-all;
 }
