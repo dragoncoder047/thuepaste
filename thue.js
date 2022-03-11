@@ -79,7 +79,8 @@ class InputRule extends Rule {
         super(text);
         if (this.right !== ':::') throw 'not input';
     }
-    applyMatch(text, matchIndex, thue) {
+    applyMatch(text, matchIndex, thue, silent = false) {
+        if (silent) throw 'cannot determine halting condition for a program that accepts user input';
         return text.substring(0, matchIndex) + thue.input() + text.substring(matchIndex + this.left.length, text.length);
     }
 }
@@ -89,8 +90,8 @@ class OutputRule extends Rule {
         super(text);
         if (!this.right.startsWith('~')) throw 'not output';
     }
-    applyMatch(text, matchIndex, thue) {
-        thue.output(this.right.substring(1, this.right.length));
+    applyMatch(text, matchIndex, thue, silent = false) {
+        if (!silent) thue.output(this.right.substring(1, this.right.length));
         return text.substring(0, matchIndex) + text.substring(matchIndex + this.left.length, text.length);
     }
 }
