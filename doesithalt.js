@@ -6,7 +6,7 @@ function halts(thue, timeout = 60000) {
         if (matches.length === 0) return 1.0;
         var chances = [];
         for (var [r, m] of matches) {
-            chances.push(chanceOfHalting(thue.apply(r, m, text)));
+            chances.push(chanceOfHalting(thue.apply(r, m, text, true)));
         }
         return chances.reduce((a, b) => a + b, 0.0) / chances.length;
     }
