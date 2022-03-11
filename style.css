@@ -20,7 +20,8 @@ header p a {
 }
 
 textarea#code {
-    border: 1px solid yellow;
+    border: 1px solid blue;
+    padding: 1em;
     height: 7em;
     max-width: 99%;
     min-width: 40%;
