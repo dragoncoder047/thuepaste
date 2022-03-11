@@ -6,6 +6,7 @@ var codeBox = $('#code');
 var loadButton = $('#load');
 var runButton = $('#run');
 var stepButton = $('#step');
+var haltsButton = $('#halts');
 var thueArea = $('#thue');
 
 var thue = new OutputThue([], '', thueArea);
@@ -17,6 +18,7 @@ samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSel
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
 runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
 stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
+stepButton.addEventListener('click', wrapWithTryCatch(e => determineHalts()));
 
 init('samples/hello.t').then(() => status('Ready.'));
 
@@ -76,6 +78,15 @@ function toggleStartStop() {
         stop();
     else 
         start();
+}
+
+function determineHalts() {
+    status('Computing...', 'computing');
+    var chance = halts(thue);
+    if (chance === 1.0)
+        status('Program will definitely halt.', 'done');
+    else
+        status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
 }
 
 function erro(e) {
