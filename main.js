@@ -84,9 +84,9 @@ function determineHalts() {
     requestAnimationFrame(() => status('Computing...', 'computing'));
     var chance = halts(thue);
     if (chance === 1.0)
-        requestAnimationFrame(() => status('Program will definitely halt.', 'done'));
+        setTimeout(() => status('Program will definitely halt.', 'done'), 10);
     else
-        requestAnimationFrame(() => status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done'));
+        setTimeout(() => status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done'), 10);
 }
 
 function erro(e) {
