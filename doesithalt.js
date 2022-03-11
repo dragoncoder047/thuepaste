@@ -10,7 +10,7 @@ function halts(thue, timeout = 5000) {
             // test to see if the rule will match itself
             var oldRules = thue.rules;
             thue.rules = [r];
-            var mematch = thue.matches(text).length;
+            var mematch = thue.matches(applied).length;
             thue.rules = oldRules;
             if (mematch > 0)
                 chances.push(1.0 - (mematch / matches.length)); // may match itself this many times, so it might not halt.
