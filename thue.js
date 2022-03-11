@@ -10,11 +10,11 @@ class Thue {
                 matches.push([r, m]);
             }
         }
-        if (matches.length === 0) return;
+        if (matches.length === 0) return true;
         var [rule, match] = randomChoice(matches);
         var oldText = this.text;
         this.text = rule.applyMatch(oldText, match, this);
-        return this.text;
+        return false;
     }
 }
 
@@ -41,13 +41,12 @@ class OutputThue extends Thue {
     }
     tick() {
         var oldText = this.text;
-        this.lastStep = this.stepOnce();
+        var done = this.stepOnce();
         this.workspace.textContent = this.text;
-        if (this.text === oldText) {
+        if (done) {
             this.workspace.classList.add('done');
-            return true;
         }
-        return false;
+        return done;
     }
 }
 
