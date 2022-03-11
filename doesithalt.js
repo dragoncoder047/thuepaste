@@ -1,4 +1,4 @@
-function halts(thue, timeout = 60000) {
+function halts(thue, timeout = 5000) {
     const start = +new Date();
     function chanceOfHalting(text) {
         if (+new Date() - start > timeout) throw 'timeout';
