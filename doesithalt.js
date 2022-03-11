@@ -3,10 +3,19 @@ function halts(thue, timeout = 5000) {
     function chanceOfHalting(text) {
         if (+new Date() - start > timeout) throw 'timeout';
         var matches = thue.matches(text);
-        if (matches.length === 0) return 1.0;
+        if (matches.length === 0) return 1.0; // will defintely halt.
         var chances = [];
         for (var [r, m] of matches) {
-            chances.push(chanceOfHalting(thue.apply(r, m, text, true)));
+            var applied = thue.apply(r, m, text, true);
+            // test to see if the rule will match itself
+            var oldRules = thue.rules;
+            thue.rules = [r];
+            var mematch = thue.matches(text).length;
+            thue.rules = oldRules;
+            if (mematch > 0)
+                chances.push(1.0 - (mematch / matches.length)); // may match itself this many times, so it might not halt.
+            else
+                chances.push(chanceOfHalting(thue.apply(r, m, text, true)));
         }
         return chances.reduce((a, b) => a + b, 0.0) / chances.length;
     }
