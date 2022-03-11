@@ -19,11 +19,13 @@ header p a {
     color: var(--color-footer);
 }
 
-pre#code {
-    border: 1px solid yellow!important;
+textarea#code {
+    border: 1px solid yellow;
     height: min(30%, max-content);
     max-width: 99%;
     min-width: 40%;
     resize: horizontal;
     overflow: auto;
+    color: white;
+    background: black;
 }
