@@ -3,17 +3,22 @@ class Thue {
         this.rules = rules || [];
         this.text = text || '';
     }
-    stepOnce() {
+    matches(text) {
         var matches = [];
         for (var r of this.rules) {
-            for (var m of r.findMatches(this.text)) {
+            for (var m of r.findMatches(text)) {
                 matches.push([r, m]);
             }
         }
+        return matches;
+    }
+    apply(rule, match, text) {
+        return rule.applyMatch(text, match, this);
+    }
+    stepOnce() {
+        var matches = this.matches(this.text);
         if (matches.length === 0) return true;
-        var [rule, match] = randomChoice(matches);
-        var oldText = this.text;
-        this.text = rule.applyMatch(oldText, match, this);
+        this.text = this.apply(...randomChoice(matches), this.text);
         return false;
     }
 }
