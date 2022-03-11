@@ -18,7 +18,7 @@ samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSel
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
 runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
 stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
-stepButton.addEventListener('click', wrapWithTryCatch(e => determineHalts()));
+haltsButton.addEventListener('click', wrapWithTryCatch(e => determineHalts()));
 
 init('samples/hello.t').then(() => status('Ready.'));
 
