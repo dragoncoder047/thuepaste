@@ -82,7 +82,7 @@ function toggleStartStop() {
 
 function determineHalts() {
     requestAnimationFrame(() => status('Computing...', 'computing'));
-    var chance = halts(thue);
+    var chance = chanceOfHalting(thue);
     if (chance === 1.0)
         setTimeout(() => status('Program will definitely halt.', 'done'), 10);
     else if (chance === 0.0)
