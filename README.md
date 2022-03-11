@@ -42,6 +42,10 @@ This one shows off the random part of Thue. It contains two rules that both have
 
 This one shows the difference between Thue and another probablilistic algorithm, Markov chains. While a Markov chain given the same rules would correctly convert the asterisks into their number in Roman numerals (`XVIII`), Thue fails miserably here -- and produces abscurdities such as `IVXIIIV` or even `IXIX`.
 
+### samples/tounary.t
+
+This little one I wrote myself. Give it any number in decimal (of any number of digits) and it will convert it into that number of asterisks.
+
 ## How this Thue implementation works
 
 Everything relevant to core Thue functionality is in `thue.js`.
