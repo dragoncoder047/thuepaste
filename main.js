@@ -82,7 +82,7 @@ function toggleStartStop() {
 
 function determineHalts() {
     status('Computing...', 'computing');
-    setTimeout(() => {
+    setTimeout(wrapWithTryCatch(() => {
         var chance = chanceOfHalting(thue);
         if (chance === 1.0)
             status('Program will definitely halt.', 'done');
@@ -90,7 +90,7 @@ function determineHalts() {
             status('Program will never halt.', 'done');
         else
             status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
-    }, 0);
+    }), 0);
 }
 
 function erro(e) {
