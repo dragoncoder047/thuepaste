@@ -81,14 +81,16 @@ function toggleStartStop() {
 }
 
 function determineHalts() {
-    requestAnimationFrame(() => status('Computing...', 'computing'));
-    var chance = chanceOfHalting(thue);
-    if (chance === 1.0)
-        setTimeout(() => status('Program will definitely halt.', 'done'), 10);
-    else if (chance === 0.0)
-        setTimeout(() => status('Program will never halt.', 'done'), 10);
-    else
-        setTimeout(() => status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done'), 10);
+    status('Computing...', 'computing');
+    setTimeout(() => {
+        var chance = chanceOfHalting(thue);
+        if (chance === 1.0)
+            status('Program will definitely halt.', 'done');
+        else if (chance === 0.0)
+            status('Program will never halt.', 'done');
+        else
+            status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
+    }, 0);
 }
 
 function erro(e) {
