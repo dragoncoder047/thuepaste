@@ -24,8 +24,16 @@ init('samples/hello.t').then(() => status('Ready.'));
 
 function status(text, cls='') { statusBar.setAttribute('class', cls); statusBar.textContent = text; }
 
+function buttonsEnable(load = true, run = true, step = true, halts = true) {
+    loadButton.setAttribute('disabled', !load);
+    runButton.setAttribute('disabled', !run);
+    stepButton.setAttribute('disabled', !step);
+    haltsButton.setAttribute('disabled', !halts);
+}
+
 async function init(filename=false) {
     if (running) stop();
+    buttonsEnable(false, false, false, false)
     var text;
     if (filename) {
         status('Downloading example...');
@@ -39,19 +47,22 @@ async function init(filename=false) {
     } else
         text = codeBox.value;
     status('Parsing...');
-    var [rules, init] = parse(text, [OutputRule, InputRule, Rule]);
-    thue.init(init);
+    var [rules, state] = parse(text, [OutputRule, InputRule, RegExpRule, Rule]);
+    thue.init(state);
     thue.rules = rules;
     status('Press RUN.');
     done = false;
+    runButton.textContent = 'Run';
+    buttonsEnable();
 }
 
 function step() {
-    if (done) return;
     done = thue.tick();
     if (done) {
         stop();
         status('Program halted.', 'done');
+        buttonsEnable(true, true, false, true);
+        runButton.textContent = 'Restart';
         return;
     }
     if (running) requestAnimationFrame(step);
@@ -59,8 +70,11 @@ function step() {
 
 function stop() {
     running = false;
-    runButton.textContent = 'Run';
-    status(done ? 'Program halted. ' : 'Paused.');
+    runButton.textContent = 'Resume';
+    if (done)
+        status('Program halted.', 'done')
+    else
+        status('Paused.');
 }
 
 function start() {
@@ -81,20 +95,22 @@ function toggleStartStop() {
 }
 
 function determineHalts() {
-    status('Computing...', 'computing');
-    setTimeout(wrapWithTryCatch(() => {
-        var chance = chanceOfHalting(thue);
+    setTimeout(wrapWithTryCatch(() => { // setTimeout to prevent prowser from baulking with a long-running event handler.
+        buttonsEnable(false, false, false, false);
+        var chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'));
         if (chance === 1.0)
             status('Program will definitely halt.', 'done');
         else if (chance === 0.0)
             status('Program will never halt.', 'done');
         else
             status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
+        buttonsEnable();
     }), 0);
 }
 
 function erro(e) {
     stop();
+    buttonsEnable(true, false, false, false);
     status('Error: ' + e, 'error');
 }
 
