@@ -101,6 +101,29 @@ class OutputRule extends Rule {
     }
 }
 
+class RegExpRule extends Rule {
+    constructor(text) {
+        if (text.indexOf('::/=') === -1) throw 'no ::/= in regexp rule';
+        var [left, right] = text.split('::/=');
+        this.left = new RegExp('^' + (left || ''));
+        this.right = right || '';
+    }
+    findMatches(text) {
+        var out = [];
+        for (var i = 0; i < text.length; i++) {
+            var m = this.left.test(text.substring(0, i));
+            if (m) {
+                out.push(i);
+            }
+        }
+        return out;
+    }
+    applyMatch(text, matchIndex, thue) {
+        var t = text.substring(matchIndex, text.length);
+        return text.substring(0, matchIndex) + t.replace(this.left, this.right);
+    }
+}
+
 function randomChoice(a) {
     return a[Math.floor(Math.random() * a.length)];
 }
