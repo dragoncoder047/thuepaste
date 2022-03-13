@@ -12,7 +12,7 @@ function chanceOfHalting(thue, depthCallback, timeout = 5000) {
             for (var s in seen) {
                 if (s.indexOf(applied) > -1) {
                     var c = seen[s];
-                    ////////////////////////////////////////
+                    throw 'todo'; ////////////////////////////////////////
                 }
             }
         }
