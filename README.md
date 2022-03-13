@@ -64,13 +64,44 @@ The code in `main.js` does the aforementioned work of repeatedly calling `tick()
 
 ## Does it halt?
 
-*I'm fully aware that the [halting problem](https://en.wikipedia.org/wiki/Halting_problem) is unsolvable. This is only an approximation to it. There is a fixed timeout of 5 seconds to avoid hogging the CPU.*
+*I'm fully aware that the [halting problem](https://en.wikipedia.org/wiki/Halting_problem) is unsolvable. This is only an approximation to it.*
 
-The algorithm I use to answer that question is fairly complicated, so here is the simplest description.
+The algorithm I use is based on the analogy that a Thue program is like a nondeterministic state machine that has a certain chance of halting from each state. Consider this Thue program:
 
-I was inspired by quantum computers for this (and it could probably run a whole lot faster on a quantum computer). Instead of applying one random rule in a random location on the string, my algorithm attempts to apply every rule, everywhere, simultaneously. It then recursively calls itself with the rest of the rules.
+```thue
+a::=b
+a::=c
+c::=d
+d::=c
+::=
+a
+```
 
-TODO - FINISH THIS
+That translates directly into this state diagram:
 
-More specifically, it takes the starting string and the rules, and then goes through each match and 
+```mermaid
+flowchart LR
+    a --> b
+    a --> c
+    c --> d
+    d --> c
+```
 
+From a starting state of `a`, it has a 50% chance of going into state `b`, and a 50% chance of going into state `c`. No rules match `b`, so it has a 100% chance of halting from `b`. And it can be readily seen that `c` and `d` form an infinite loop that has zero chance of halting. But how is that actually determined? The method I use keeps a history of what path from the root (in this case `a`) it has taken to get to some state. When it gets to `d` and considers the transition back to `c`, it sees that it has already passed through `c`, and from `c`, there is a 100% chance of transitioning to `d` (where it is), so it knows that an infinite loop has formed and returns 0% to the recursive calls that depend on `d`. So from `a`, it has two paths: one with a 100% chance of halting (to `b`) and one with a 0% chance of halting (to `c`). The result is the average of each of the choices, 50%. And indeed, this program halts only half the times it is run.
+
+Now consider what happens when the rule `d::=b` is added to the above program. The state space now becomes this:
+
+```mermaid
+flowchart LR
+    a --> b
+    a --> c
+    c --> d
+    d --> c
+    d --> b
+```
+
+Now, there *is* a path out of the infinite loop. What is the chance of halting from state `d`? Each time around the loop, it has a 1/2 chance of halting (via `b`), and 1/2 chance of going around the loop again (via `c`). So the total chance of halting in this loop is 1/2 + 1/4 + 1/8 + 1/16 ... A little [numerical analysis](https://www.desmos.com/calculator/odzpdulihz) shows this series converges to 1. So our supposed infinite loop halts, and does so with certainty!
+
+Now how does the computer determine this?
+
+I DON'T KNOW. ***TODO***
