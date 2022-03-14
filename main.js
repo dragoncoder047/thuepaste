@@ -25,10 +25,10 @@ init('samples/hello.t').then(() => status('Ready.'));
 function status(text, cls='') { statusBar.setAttribute('class', cls); statusBar.textContent = text; }
 
 function buttonsEnable(load = true, run = true, step = true, halts = true) {
-    loadButton.setAttribute('disabled', !load);
-    runButton.setAttribute('disabled', !run);
-    stepButton.setAttribute('disabled', !step);
-    haltsButton.setAttribute('disabled', !halts);
+    load  ?  loadButton.removeAttribute('disabled') :  loadButton.setAttribute('disabled', true);
+    run   ?   runButton.removeAttribute('disabled') :   runButton.setAttribute('disabled', true);
+    step  ?  stepButton.removeAttribute('disabled') :  stepButton.setAttribute('disabled', true);
+    halts ? haltsButton.removeAttribute('disabled') : haltsButton.setAttribute('disabled', true);
 }
 
 async function init(filename=false) {
