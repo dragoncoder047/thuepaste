@@ -16,7 +16,9 @@ Thue is an esoteric programming language invented by John Colagioia in early 200
 
 Traditionally Thue has also included two 'special' rules for input and output. For input, a right side of `:::` (three colons) will instead be replaced with a string of input from the user. For output, any right side starting with `~` (tilde) will be replaced with nothing, and everything after the tilde is printed instead.
 
-For all the nitty gritty, have a look at the [wikipedia article](https://en.wikipedia.org/wiki/Thue_(programming_language)) for the abstract mathematical Chomsky-heiarchy-whatever stuff, or [John Colagioia's manual](https://github.com/jcolag/Thue) for a lttle more on the syntax.
+I have also added a new type of rule, using regular expressions, signified by a separator of `::/=` instead of `::=`. The left side is a regular expression, and the right side is a replacement string (see [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_string_as_a_parameter) for how to use the capture groups). This does not affect the halting algorithm described below.
+
+For all the nitty gritty about Thue, have a look at the [wikipedia article](https://en.wikipedia.org/wiki/Thue_(programming_language)) for the abstract mathematical Chomsky-heiarchy-whatever stuff, or [John Colagioia's manual](https://github.com/jcolag/Thue) for a lttle more on the syntax.
 
 ## Does it halt?
 
