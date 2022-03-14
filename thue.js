@@ -131,7 +131,7 @@ function randomChoice(a) {
 
 function parse(code, ruleClasses, endOfRules='::=') {
     var lines = code.split(/\r\n|\r|\n/);
-    status(lines); return [[],[]];
+    alert(lines);
     var rules = [], text = '';
     while (lines) {
         var line = lines.shift();
