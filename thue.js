@@ -101,13 +101,13 @@ class OutputRule extends Rule {
     }
 }
 
-class RegExpRule extends Rule {
+class RegExpRule {
     constructor(text) {
-        alert('regexp rule: ' + text);
         if (text.indexOf('::/=') === -1) throw 'no ::/= in regexp rule';
         var [left, right] = text.split('::/=');
-        alert(left); alert(right);
+        try {
         this.left = new RegExp('^' + (left || ''));
+        } catch(e) {alert(e); throw e;}
         this.right = right || '';
     }
     findMatches(text) {
