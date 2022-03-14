@@ -105,9 +105,7 @@ class RegExpRule {
     constructor(text) {
         if (text.indexOf('::/=') === -1) throw 'no ::/= in regexp rule';
         var [left, right] = text.split('::/=');
-        try {
         this.left = new RegExp('^' + (left || ''));
-        } catch(e) {alert(e); throw e;}
         this.right = right || '';
     }
     findMatches(text) {
@@ -118,6 +116,7 @@ class RegExpRule {
                 out.push(i);
             }
         }
+        alert(out);
         return out;
     }
     applyMatch(text, matchIndex, thue) {
