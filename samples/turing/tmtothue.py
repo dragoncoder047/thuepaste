@@ -25,7 +25,7 @@ for state, do in tmdef.items():
         else:
             print(f'(\\d){state}{read}(\\d)::/=$1{write}{newstate}$2')
 
-print('_(\\w\\d)::/=_0$1')
-print('(\\w\\d)_::/=$10_')
+print('_([{"".join(tmdef.keys())}]\\d)::/=_0$1')
+print('([{"".join(tmdef.keys())}]\\d)_::/=$10_')
 print('::=')
 print('_0a00_')
