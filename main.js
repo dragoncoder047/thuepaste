@@ -13,6 +13,7 @@ var thue = new OutputThue([], '', thueArea);
 
 var running = false;
 var done = false;
+var haltsAborter = null;
 
 samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSelector.value)));
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
@@ -95,24 +96,32 @@ function toggleStartStop() {
 }
 
 function determineHalts() {
-    setTimeout(wrapWithTryCatch(() => { // setTimeout to prevent prowser from baulking with a long-running event handler.
-        buttonsEnable(false, false, false, false);
-        var chance;
-        try {
-            chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'));
-        } catch (e) {
-            status(e, 'error');
+    if (haltsAborter) haltsAborter.abort();
+    else {
+        haltsAborter = new AbortController();
+        setTimeout(wrapWithTryCatch(() => { // setTimeout to prevent prowser from baulking with a long-running event handler.
+            buttonsEnable(false, false, false, true);
+            haltsButton.textContent = 'Abort';
+            var chance;
+            try {
+                chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'), haltsAborter.signal);
+            } catch (e) {
+                status('Error: ' + e, 'error');
+                haltsAborter = null;
+                buttonsEnable();
+                return;
+            }
+            if (chance === 1.0)
+                status('Program will definitely halt.', 'done');
+            else if (chance === 0.0)
+                status('Program will never halt.', 'done');
+            else
+                status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
             buttonsEnable();
-            return;
-        }
-        if (chance === 1.0)
-            status('Program will definitely halt.', 'done');
-        else if (chance === 0.0)
-            status('Program will never halt.', 'done');
-        else
-            status(`Program has a ${Math.floor(100 * chance)}% chance of halting.`, 'done');
-        buttonsEnable();
-    }), 0);
+            haltsButton.textContent = 'Does it halt?';
+            haltsAborter = null;
+        }), 0);
+    }
 }
 
 function erro(e) {
