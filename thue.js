@@ -111,7 +111,7 @@ class RegExpRule {
     findMatches(text) {
         var out = [];
         for (var i = 0; i < text.length; i++) {
-            var m = this.left.test(text.substring(0, i));
+            var m = this.left.test(text.substring(i, text.length));
             if (m) {
                 out.push(i);
             }
@@ -150,6 +150,5 @@ function parse(code, ruleClasses, endOfRules='::=') {
         }
     }
     if (!rules) throw 'no rules';
-    alert(rules);
     return [rules, text];
 }
