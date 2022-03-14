@@ -2,7 +2,7 @@ function chanceOfHalting(thue, depthCallback, abortSignal) {
     const start = +new Date();
     var seen = {};
     function test(text, depth, path) {
-        if (abortSignal.aborted) throw abortSignal.reason || 'aborted';
+        if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';
         var matches = thue.matches(text);
         seen[text] = matches.length;
         if (matches.length === 0) return 1.0; // will defintely halt.
