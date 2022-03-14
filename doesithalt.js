@@ -1,8 +1,8 @@
-function chanceOfHalting(thue, depthCallback, timeout = 5000) {
+function chanceOfHalting(thue, depthCallback, abortSignal) {
     const start = +new Date();
     var seen = {};
     function test(text, depth, path) {
-        if (+new Date() - start > timeout) throw 'timeout';
+        if (abortSignal.aborted) throw abortSignal.reason || 'aborted';
         var matches = thue.matches(text);
         seen[text] = matches.length;
         if (matches.length === 0) return 1.0; // will defintely halt.
