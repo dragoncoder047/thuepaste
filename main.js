@@ -97,7 +97,14 @@ function toggleStartStop() {
 function determineHalts() {
     setTimeout(wrapWithTryCatch(() => { // setTimeout to prevent prowser from baulking with a long-running event handler.
         buttonsEnable(false, false, false, false);
-        var chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'));
+        var chance;
+        try {
+            chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'));
+        } catch (e) {
+            status(e, 'error');
+            buttonsEnable();
+            return;
+        }
         if (chance === 1.0)
             status('Program will definitely halt.', 'done');
         else if (chance === 0.0)
