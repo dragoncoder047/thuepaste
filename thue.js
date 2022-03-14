@@ -116,7 +116,6 @@ class RegExpRule {
                 out.push(i);
             }
         }
-        alert(out);
         return out;
     }
     applyMatch(text, matchIndex, thue) {
@@ -151,5 +150,6 @@ function parse(code, ruleClasses, endOfRules='::=') {
         }
     }
     if (!rules) throw 'no rules';
+    alert(rules);
     return [rules, text];
 }
