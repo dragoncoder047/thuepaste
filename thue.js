@@ -103,8 +103,10 @@ class OutputRule extends Rule {
 
 class RegExpRule extends Rule {
     constructor(text) {
+        alert('regexp rule: ' + text);
         if (text.indexOf('::/=') === -1) throw 'no ::/= in regexp rule';
         var [left, right] = text.split('::/=');
+        alert(left); alert(right);
         this.left = new RegExp('^' + (left || ''));
         this.right = right || '';
     }
@@ -131,7 +133,6 @@ function randomChoice(a) {
 
 function parse(code, ruleClasses, endOfRules='::=') {
     var lines = code.split(/\r\n|\r|\n/);
-    alert(lines);
     var rules = [], text = '';
     while (lines) {
         var line = lines.shift();
