@@ -31,3 +31,7 @@ This little one I wrote myself. Give it any number in decimal (of any number of 
 ## samples/todecimal.t
 
 This one, also by me, does the reverse of the previous sample. Given a string of asterisks, it will count them.
+
+## samples/turing/wolfram.t
+
+The first Thue program I wrote using the new regular expression rules. This is an emulation of the [2-state 3-symbol Turing machine](https://en.wikipedia.org/wiki/Wolfram%27s_2-state_3-symbol_Turing_machine) designed by Stephen Wolfram that has since been proved to be universal.
