@@ -3,7 +3,7 @@
 left = 89
 right = 45
 
-tmdef = {
+wolfram = {
     'a': (
         (1, right, 'b'), #read 0
         (2, left,  'a'), #read 1
@@ -15,6 +15,15 @@ tmdef = {
         (0, right, 'a'), #read 2
     ),
 }
+
+bb1 = {
+    'a': ((1, right, 'b'), (1, left, 'b')),
+    'b': ((1, left, 'a'), (0, left, 'c')),
+    'c': ((1, right, 'HALT'), (1, left, 'd')),
+    'd': ((1, right, 'd'), (0, right, 'a')),
+}
+
+tmdef = bb1
 
 blank = 0
 
