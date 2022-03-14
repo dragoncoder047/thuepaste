@@ -35,3 +35,7 @@ This one, also by me, does the reverse of the previous sample. Given a string of
 ## samples/turing/wolfram.t
 
 The first Thue program I wrote using the new regular expression rules. This is an emulation of the [2-state 3-symbol Turing machine](https://en.wikipedia.org/wiki/Wolfram%27s_2-state_3-symbol_Turing_machine) designed by Stephen Wolfram that has since been proved to be universal.
+
+## samples/turing/bb1.t
+
+Another Turing machine. This is the 4-state 2-symbol busy beaver found [here](https://en.wikipedia.org/wiki/Busy_beaver).
