@@ -1,6 +1,6 @@
 # Thuepaste
 
-Some utilities for working with the Thue programming language.
+A function to determine the probability of a Thue program halting, plus some utilities for working with the Thue programming language.
 
 The demo page is inspired by [this jsfiddle](https://jsfiddle.net/ao6egwh9/3/) and [Chris Pressey's Python implementation](https://github.com/catseye/Thue/blob/master/src/thue.py). I don't know who made that jsfiddle - all I know was that it was originally hosted at <http://z3.ca/~lament/thue.html> but that link is dead. (If you know who made it, please do tell me.)
 
@@ -16,7 +16,7 @@ Thue is an esoteric programming language invented by John Colagioia in early 200
 
 Traditionally Thue has also included two 'special' rules for input and output. For input, a right side of `:::` (three colons) will instead be replaced with a string of input from the user. For output, any right side starting with `~` (tilde) will be replaced with nothing, and everything after the tilde is printed instead.
 
-I have also added a new type of rule, using regular expressions, signified by a separator of `::/=` instead of `::=`. The left side is a regular expression, and the right side is a replacement string (see [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_string_as_a_parameter) for how to use the capture groups). This does not affect the halting algorithm described below -- it is simply syntactic sugar to write many similar rules at once. For example, the rule needed to swap two digits is simply `(\d)(\d)::/=$2$1`, which 'expands' to 90 separate rules that begin with `01::=10`, `02::=20`, `12::=21`, and so on.
+I have also added a new type of rule, using regular expressions, signified by a separator of `::/=` instead of `::=`. The left side is a regular expression, and the right side is a replacement string (see [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_string_as_a_parameter) for how to use the capture groups). This does not affect the halting algorithm described below -- it is simply syntactic sugar to write many similar rules at once. For example, the rule needed to swap two digits is simply `(\d)(\d)::/=$2$1`, which would noramally require 90 (!) separate rules that begin with `01::=10`, `02::=20`, `12::=21`, and so on.
 
 For all the nitty gritty about Thue, have a look at the [wikipedia article](https://en.wikipedia.org/wiki/Thue_(programming_language)) for the abstract mathematical Chomsky-heiarchy-whatever stuff, or [John Colagioia's manual](https://github.com/jcolag/Thue) for a lttle more on the syntax.
 
