@@ -1,7 +1,7 @@
 async function chanceOfHalting(thue, depthCallback, abortSignal) {
     var seen = new Map();
     async function test(text, depth, path) {
-        while(true){if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';await depthCallback(Math.random());}
+        if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';
         
         var matches = thue.matches(text);
         seen.set(text, matches.length);
@@ -15,10 +15,16 @@ async function chanceOfHalting(thue, depthCallback, abortSignal) {
             for (var [s, c] in seen) {
                 if (s === applied) {
                     // is this really the best approximation?
-                    var ch = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-                    throw 'todo';
+                    var ch = 1.0;
+                    var n = path.indexOf(s);
+                    for (var i = n + 1; i < path.length; i++)
+                        ch /= seen.get(path[i]);
+                    chances.push(ch);
+                    found = true;
                 }
             }
+            // brute force recursive search
+            if (!found) chances.push(await test(applied, depth + 1, path.concat([applied])));
         }
         return chances.reduce((a, b) => a + b, 0.0) / chances.length;
     }
