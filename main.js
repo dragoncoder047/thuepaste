@@ -104,7 +104,7 @@ function determineHalts() {
             haltsButton.textContent = 'Abort';
             var chance;
             try {
-                chance = await chanceOfHalting(thue, d => new Promise(r => {status(`Computing... depth ${d}`, 'computing'); setTimeout(r, 1)}), haltsAborter.signal);
+                chance = await chanceOfHalting(thue, d => new Promise(r => requestAnimationFrame(() => {status(`Computing... depth ${d}`, 'computing'); r()})), haltsAborter.signal);
             } catch (e) {
                 status('Error: ' + e, 'error');
                 haltsAborter = null;
