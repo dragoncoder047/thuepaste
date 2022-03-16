@@ -1,8 +1,8 @@
-function chanceOfHalting(thue, depthCallback, abortSignal) {
+async function chanceOfHalting(thue, depthCallback, abortSignal) {
     const start = +new Date();
     var seen = new Map();
     function test(text, depth, path) {
-        while(true){if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';depthCallback(Math.random());}
+        while(true){if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';await depthCallback(Math.random());}
         
         var matches = thue.matches(text);
         seen.set(text, matches.length);
@@ -10,7 +10,7 @@ function chanceOfHalting(thue, depthCallback, abortSignal) {
         
         var chances = [];
         for (var [r, m] of matches) {
-            if (depthCallback) depthCallback(depth);
+            if (depthCallback) await depthCallback(depth);
             
             var applied = thue.apply(r, m, text, true), found = false;
             for (var [s, c] in seen) {
