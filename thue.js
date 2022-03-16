@@ -41,8 +41,8 @@ class OutputThue extends Thue {
     output(text) {
         this.outputElement.innerHTML += text;
     }
-    input() {
-        return prompt('input please');
+    input(p) {
+        return prompt(p || 'input please');
     }
     tick() {
         var oldText = this.text;
@@ -57,10 +57,13 @@ class OutputThue extends Thue {
 
 class Rule {
     constructor(text) {
-        if (text.indexOf('::=') === -1) throw 'no ::= in rule';
+        if (text.indexOf('::=') === -1) throw `not a rule: ${text}`;
         var [left, right] = text.split('::=');
         this.left = left || '';
         this.right = right || '';
+        if (right === left) throw `degenerate rule: ${left}::=${right}`;
+        this.selfApplicable = right.indexOf(left) > -1;
+        this.output = this.left;
     }
     findMatches(text) {
         var i, lastindex = 0;
@@ -82,18 +85,22 @@ class Rule {
 class InputRule extends Rule {
     constructor(text) {
         super(text);
-        if (this.right !== ':::') throw 'not input';
+        if (!this.right.startsWith(':::')) throw 'not input rule';
+        this.selfApplicable = undefined;
+        this.output = undefined;
     }
     applyMatch(text, matchIndex, thue, silent = false) {
         if (silent) throw 'cannot determine halting condition for a program that accepts user input';
-        return text.substring(0, matchIndex) + thue.input() + text.substring(matchIndex + this.left.length, text.length);
+        return text.substring(0, matchIndex) + thue.input(this.right.substring(3, this.right.length)) + text.substring(matchIndex + this.left.length, text.length);
     }
 }
 
 class OutputRule extends Rule {
     constructor(text) {
         super(text);
-        if (!this.right.startsWith('~')) throw 'not output';
+        if (!this.right.startsWith('~')) throw 'not output rule';
+        this.selfApplicable = false;
+        this.output = '';
     }
     applyMatch(text, matchIndex, thue, silent = false) {
         if (!silent) thue.output(this.right.substring(1, this.right.length));
@@ -103,10 +110,12 @@ class OutputRule extends Rule {
 
 class RegExpRule {
     constructor(text) {
-        if (text.indexOf('::/=') === -1) throw 'no ::/= in regexp rule';
+        if (text.indexOf('::/=') === -1) throw `bad regexp rule: ${text}`;
         var [left, right] = text.split('::/=');
         this.left = new RegExp('^' + (left || ''));
         this.right = right || '';
+        this.selfApplicable = undefined;
+        this.output = undefined;
     }
     findMatches(text) {
         var out = [];
