@@ -108,6 +108,7 @@ function determineHalts() {
             } catch (e) {
                 status('Error: ' + e, 'error');
                 haltsAborter = null;
+                haltsButton.textContent = 'Does it halt?';
                 buttonsEnable();
                 return;
             }
