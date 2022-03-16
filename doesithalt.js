@@ -22,6 +22,7 @@ async function chanceOfHalting(thue, depthCallback, abortSignal) {
                     chances.push(ch);
                     found = true;
                 }
+                await depthCallback(depth);
             }
             // brute force recursive search
             if (!found) chances.push(await test(applied, depth + 1, path.concat([applied])));
