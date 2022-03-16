@@ -1,4 +1,8 @@
 async function chanceOfHalting(thue, statusCallback, abortSignal) {
+    throw 'todo :)';
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     function interrupt() {
         if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';
     }
@@ -42,9 +46,11 @@ async function chanceOfHalting(thue, statusCallback, abortSignal) {
         return [lambda, mu];        
     }
     
-    return findCycleFrom(thue.text, [0, 0, 0, 0, 0])[0];
+    //////////////////////////////////////return findCycleFrom(thue.text, [0, 0, 0, 0, 0])[0];
     
-    /*var seen = new Map();
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    var seen = new Map();
     async function test(text, depth, path) {
         interrupt();
         
@@ -75,5 +81,5 @@ async function chanceOfHalting(thue, statusCallback, abortSignal) {
         }
         return chances.reduce((a, b) => a + b, 0.0) / chances.length;
     }
-    return await test(thue.text, 0, [thue.text]);*/
+    return await test(thue.text, 0, [thue.text]);
 }
