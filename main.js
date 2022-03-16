@@ -95,6 +95,8 @@ function toggleStartStop() {
         start();
 }
 
+var depthCounter = 0;
+
 function determineHalts() {
     if (haltsAborter) haltsAborter.abort();
     else {
@@ -104,7 +106,17 @@ function determineHalts() {
             haltsButton.textContent = 'Abort';
             var chance;
             try {
-                chance = await chanceOfHalting(thue, d => new Promise(r => requestAnimationFrame(() => {status(`Computing... depth ${d}`, 'computing'); r()})), haltsAborter.signal);
+                chance = await chanceOfHalting(thue, d => {
+                    if (++depthCounter === 1000) {
+                        depthCounter = 0;
+                        return new Promise(r => {
+                            requestAnimationFrame(() => {
+                                status(`Computing... ${d}`);
+                                r();
+                            });
+                        });
+                    }
+                }, haltsAborter.signal);
             } catch (e) {
                 status('Error: ' + e, 'error');
                 haltsAborter = null;
