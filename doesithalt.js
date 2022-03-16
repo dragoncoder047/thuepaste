@@ -2,7 +2,7 @@ function chanceOfHalting(thue, depthCallback, abortSignal) {
     const start = +new Date();
     var seen = new Map();
     function test(text, depth, path) {
-        if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';
+        while(true){if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';depthCallback(Math.random());}
         
         var matches = thue.matches(text);
         seen.set(text, matches.length);
