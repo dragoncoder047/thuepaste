@@ -64,4 +64,54 @@ Now, there *is* a path out of the infinite loop. What is the chance of halting f
 
 Now how does the computer determine this?
 
-I DON'T KNOW. ***TODO***
+***TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO***
+
+The first edge case that has tripped me up is demonstrated by the simple truth machine program when given a `1` as input. It is given by this:
+
+```thue
+1::=1yes
+yes::=~1
+::=
+1
+```
+```mermaid
+flowchart LR
+    1 --> 1yes --> 1yesyes --> 1yesyesyes --> 1yesyesyesyes --> inf[...]
+    inf --> 1yesyesyesyes --> 1yesyesyes --> 1yesyes --> 1yes --> 1
+```
+
+This simple program has an infinite number of states (represented by the '...' in the state diagram above). The computer can't recurse infinitely, but it can see that the first rule applies to its own output. Due to that, applying that rule will not get anywhere closer to halting - so it will only apply it if nothing else matches (in the case of `1` and no `yes`).
+
+The second edge case occurs when the self-applicable rule `a::=aa` is added to the second program above (the one that always halts). The state space now starts to look like this mess (and that's restricting it to three `a`s or less and omitting all the `...` transitions):
+
+```mermaid
+flowchart LR
+    a --> aa --> aaa
+    a --> c --> d --> c
+    a --> b --> HALT
+    aa --> ab --> aab
+    aa --> ac --> ad --> ac --> aac
+    ad --> aad
+    aa --> ba --> baa
+    aa --> ca --> da --> ca --> caa
+    da --> daa --> dab --> dbb --> cbb --> dbb
+    aaa --> aab --> aaab
+    aaa --> aac --> aad --> aac --> aaac
+    aaa --> aba --> aaba --> abba
+    aba --> abb --> bbb --> HALT
+    aba --> abaa --> bbaa --> bbaaa --> bbbaa --> bbbba --> bbbbb --> HALT
+    aaa --> aca --> ada --> aca --> acc --> acd --> add --> adc --> add --> acd --> acc
+    acc --> adc --> acc
+    ada --> aada --> aaca --> aada
+    ada --> adaa --> acaa --> adaa
+    ada --> adb --> bdb --> bcb --> bdb
+    ada --> bda --> bdb
+```
+
+I didn't bother to do any more once it got more than one screen tall!
+
+So long as the `a::=c` rule is not applied (which would lead to the c-d-c-d loop), it can still halt, but it can also still balloon out to infinity. But the computer needs to figure out that - this is where the self-applicable property of `a::=aa` comes into play here. Avoiding that rule results in finding the c-d-c-d loops faster and determining it won't halt.
+
+Now what?
+
+***TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO***
