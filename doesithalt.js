@@ -13,8 +13,8 @@ async function chanceOfHalting(thue, depthCallback, abortSignal) {
             
             var applied = thue.apply(r, m, text, true), found = false;
             for (var [s, c] in seen) {
-                if (s === applied) {
-                    // is this really the best approximation?
+                if (s.indexOf(applied) > -1) {
+                    // is this really the best approximation? substring?
                     var ch = 1.0;
                     var n = path.indexOf(s);
                     for (var i = n + 1; i < path.length; i++)
