@@ -111,7 +111,7 @@ function determineHalts() {
                         depthCounter = 0;
                         return new Promise(r => {
                             requestAnimationFrame(() => {
-                                status(`Computing... ${d}`);
+                                status(`Computing... ${d}`, 'computing');
                                 r();
                             });
                         });
