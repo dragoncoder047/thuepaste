@@ -1,7 +1,6 @@
 async function chanceOfHalting(thue, depthCallback, abortSignal) {
-    const start = +new Date();
     var seen = new Map();
-    function test(text, depth, path) {
+    async function test(text, depth, path) {
         while(true){if (abortSignal && abortSignal.aborted) throw abortSignal.reason || 'aborted';await depthCallback(Math.random());}
         
         var matches = thue.matches(text);
@@ -23,5 +22,5 @@ async function chanceOfHalting(thue, depthCallback, abortSignal) {
         }
         return chances.reduce((a, b) => a + b, 0.0) / chances.length;
     }
-    return test(thue.text, 0, [thue.text]);
+    return await test(thue.text, 0, [thue.text]);
 }
