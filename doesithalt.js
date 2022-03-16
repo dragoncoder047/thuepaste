@@ -17,12 +17,13 @@ async function chanceOfHalting(thue, depthCallback, abortSignal) {
                     // is this really the best approximation? substring?
                     var ch = 1.0;
                     var n = path.indexOf(s);
-                    for (var i = n + 1; i < path.length; i++)
+                    for (var i = n; i < path.length; i++)
                         ch /= seen.get(path[i]);
+                    seen.set(s, ch); // update chance
                     chances.push(ch);
                     found = true;
                 }
-                await depthCallback(depth);
+                //await depthCallback(depth);
             }
             // brute force recursive search
             if (!found) chances.push(await test(applied, depth + 1, path.concat([applied])));
