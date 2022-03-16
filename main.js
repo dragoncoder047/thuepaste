@@ -99,12 +99,12 @@ function determineHalts() {
     if (haltsAborter) haltsAborter.abort();
     else {
         haltsAborter = new AbortController();
-        setTimeout(wrapWithTryCatch(() => { // setTimeout to prevent prowser from baulking with a long-running event handler.
+        setTimeout(wrapWithTryCatch(async () => { // setTimeout to prevent prowser from baulking with a long-running event handler.
             buttonsEnable(false, false, false, true);
             haltsButton.textContent = 'Abort';
             var chance;
             try {
-                chance = chanceOfHalting(thue, depth => status(`Computing... depth ${depth}`, 'computing'), haltsAborter.signal);
+                chance = await chanceOfHalting(thue, depth => new Promise(r => {status(`Computing... depth ${depth}`, 'computing'); setTimeout(r, 10)}), haltsAborter.signal);
             } catch (e) {
                 status('Error: ' + e, 'error');
                 haltsAborter = null;
