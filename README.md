@@ -24,7 +24,11 @@ For all the nitty gritty about Thue, have a look at the [wikipedia article](http
 
 *I'm fully aware that the [halting problem](https://en.wikipedia.org/wiki/Halting_problem) is unsolvable. This is only an approximation to it.*
 
-The algorithm I use starts by viewing a Thue program as a nondeterministic state machine that has a certain chance of halting from each state. Each 'state' is a particular sequence of characters in the string Thue is rewriting, and the arrows to the next states are each of the places a rule can be applied to rewrite the string.
+The algorthm I use has changed considerably since I frist concieved it, and it now constitutes three different 'passes' which are all different approaches. Strangely, I thought of the 'third pass' first, then the second, then the first!
+
+### First Pass: Cycle Detection
+
+This starts by viewing a Thue program as a nondeterministic state machine that has a certain chance of halting from each state. Each 'state' is a particular sequence of characters in the string Thue is rewriting, and the arrows to the next states are each of the places a rule can be applied to rewrite the string.
 
 Consider this Thue program:
 
@@ -47,7 +51,7 @@ flowchart LR
     d --> c
 ```
 
-From a starting state of `a`, it has a 50% chance of going into state `b`, and a 50% chance of going into state `c`. No rules match `b`, so it has a 100% chance of halting from `b`. And it can be readily seen that `c` and `d` form an infinite loop that has zero chance of halting. But how is that actually determined? The method I use keeps a history of what path from the root (in this case `a`) it has taken to get to some state. When it gets to `d` and considers the transition back to `c`, it sees that it has already passed through `c`, and from `c`, there is a 100% chance of transitioning to `d` (where it is), so it knows that an infinite loop has formed and returns 0% to the recursive calls that depend on `d`. So from `a`, it has two paths: one with a 100% chance of halting (to `b`) and one with a 0% chance of halting (to `c`). The result is the average of each of the choices, 50%. And indeed, this program halts only half the times it is run.
+From a starting state of `a`, it has a 50% chance of going into state `b`, and a 50% chance of going into state `c`. No rules match `b`, so it has a 100% chance of halting from `b`. And it can be readily seen that `c` and `d` form an infinite loop that has zero chance of halting. But how is that actually determined? The `d::=c` rule applies to the output of the `c::=d` rule, and vice versa, and there is no way out of the loop, so the computer knows that if a `c` or `d` appear it will result in an infinite loop and will never halt. So from `a`, it has two paths: one with a 100% chance of halting (to `b`) and one with a 0% chance of halting (to `c`). The result is the average of each of the choices, 50%. And indeed, this program halts only half the times it is run.
 
 Now consider what happens when the rule `d::=b` is added to the above program. The state space now becomes this:
 
@@ -62,9 +66,9 @@ flowchart LR
 
 Now, there *is* a path out of the infinite loop. What is the chance of halting from state `d`? Each time around the loop, it has a 1/2 chance of halting (via `b`), and 1/2 chance of going around the loop again (via `c`). So the total chance of halting in this loop is 1/2 + 1/4 + 1/8 + 1/16 ... A little [numerical analysis](https://www.desmos.com/calculator/odzpdulihz) shows this series converges to 1. So our supposed infinite loop halts, and does so with certainty!
 
-Now how does the computer determine this?
+Now how does the computer determine this? It loos for ways out of the loop - and since there is only one way out, it will always go that way. Boom.
 
-***TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO***
+### Second Pass: Self-Applicable Rules
 
 The first edge case that has tripped me up is demonstrated by the simple truth machine program when given a `1` as input. It is given by this:
 
@@ -82,7 +86,9 @@ flowchart LR
 
 This simple program has an infinite number of states (represented by the '...' in the state diagram above). The computer can't recurse infinitely, but it can see that the first rule applies to its own output. Due to that, applying that rule will not get anywhere closer to halting - so it will only apply it if nothing else matches (in the case of `1` and no `yes`).
 
-The second edge case occurs when the self-applicable rule `a::=aa` is added to the second program above (the one that always halts). The state space now starts to look like this mess (and that's restricting it to three `a`s or less and omitting all the `...` transitions):
+### Third Pass: Brute Force Recursive
+
+Another tripping point occurs when the self-applicable rule `a::=aa` is added to the second program above (the one that always halts). The state space now starts to look like this mess (and that's restricting it to three `a`s or less and omitting all the `...` transitions):
 
 ```mermaid
 flowchart LR
@@ -90,27 +96,31 @@ flowchart LR
     a --> c --> d --> c
     a --> b --> HALT
     aa --> ab --> aab
-    aa --> ac --> ad --> ac --> aac
-    ad --> aad
+    aa --> ac --> ad --> ac --> aac --> aab
+    ad --> aad --> aab
     aa --> ba --> baa
-    aa --> ca --> da --> ca --> caa
-    da --> daa --> dab --> dbb --> cbb --> dbb
+    aa --> ca --> da --> ca --> caa --> daa --> baa
+    da --> daa --> dab --> dbb --> cbb --> dbb --> bbb
     aaa --> aab --> aaab
     aaa --> aac --> aad --> aac --> aaac
     aaa --> aba --> aaba --> abba
     aba --> abb --> bbb --> HALT
     aba --> abaa --> bbaa --> bbaaa --> bbbaa --> bbbba --> bbbbb --> HALT
     aaa --> aca --> ada --> aca --> acc --> acd --> add --> adc --> add --> acd --> acc
+    ada --> aba
+    acd --> acb
+    aada --> aaba
+    adaa --> abaa
     acc --> adc --> acc
     ada --> aada --> aaca --> aada
     ada --> adaa --> acaa --> adaa
-    ada --> adb --> bdb --> bcb --> bdb
+    ada --> adb --> bdb --> bcb --> bdb --> bbb
     ada --> bda --> bdb
 ```
 
-I didn't bother to do any more once it got more than one screen tall!
+I didn't bother to draw any more once it got more than one screen tall!
 
-So long as the `a::=c` rule is not applied (which would lead to the c-d-c-d loop), it can still halt, but it can also still balloon out to infinity. But the computer needs to figure out that - this is where the self-applicable property of `a::=aa` comes into play here. Avoiding that rule results in finding the c-d-c-d loops faster and determining it won't halt.
+Of course, because the c-d-c-d loop can halt, the entire program can still halt, but it can also still balloon out to infinity with the `a`s. But the computer needs to figure out that - this is where the self-applicable property of `a::=aa` comes into play here. Avoiding that rule results in finding the c-d-c-d loops faster and determining it is unlikely to halt.
 
 Now what?
 
