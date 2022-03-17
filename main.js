@@ -8,18 +8,21 @@ var runButton = $('#run');
 var stepButton = $('#step');
 var haltsButton = $('#halts');
 var thueArea = $('#thue');
+var hyperCheck = $('#hyper');
 
 var thue = new OutputThue([], '', thueArea);
 
 var running = false;
 var done = false;
 var haltsAborter = null;
+var hyperspeed = false;
 
 samplesSelector.addEventListener('change', wrapWithTryCatch(e => init(samplesSelector.value)));
 loadButton.addEventListener('click', wrapWithTryCatch(e => init()));
 runButton.addEventListener('click', wrapWithTryCatch(e => toggleStartStop()));
 stepButton.addEventListener('click', wrapWithTryCatch(e => stepButtonClicked()));
 haltsButton.addEventListener('click', wrapWithTryCatch(e => determineHalts()));
+hyperCheck.addEventListener('change', () => { hyperspeed = hyperCheck.checked; thue.hyperspeed = hyperspeed; });
 
 init('samples/hello.t').then(() => status('Ready.'));
 
