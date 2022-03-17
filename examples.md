@@ -46,4 +46,4 @@ The first major undertaking I wrote in Thue. It simulates a dialect of the Boolf
 
 ## samples/collatz.t
 
-This one simulates the cyclic tag system found [here](https://en.wikipedia.org/wiki/Tag_system#Example:_Computation_of_Collatz_sequences) to compute the Collatz sequence for 9. You can do any other number by starting with that many `a`s between the underscores. The unsolved nature of this is that it is not known whether any arbitrary number of `a`s will always wind up with `_a_` (that is, 1) at any point.
+This one simulates the cyclic tag system found [here](https://en.wikipedia.org/wiki/Tag_system#Example:_Computation_of_Collatz_sequences) to compute the Collatz sequence for 9. You can do any other number by starting with that many asterisks between the underscores. The unsolved nature of this is that it is not known whether any arbitrary number of asterisks will always wind up with `_*_` (that is, 1) at any point.
