@@ -29,6 +29,7 @@ class OutputThue extends Thue {
         this.workspace = document.createElement('code');
         this.outputElement = document.createElement('pre');
         area.append(this.workspace, this.outputElement);
+        this.hyperspeed = false;
 
         this.init(this.text);
     }
@@ -45,11 +46,15 @@ class OutputThue extends Thue {
         return prompt(p || 'input please');
     }
     tick() {
-        var oldText = this.text;
-        var done = this.stepOnce();
-        this.workspace.textContent = this.text;
-        if (done) {
-            this.workspace.classList.add('done');
+        var done;
+        for (var i = 0; i < (this.hyperspeed ? 1024 : 1); i++) {
+            var oldText = this.text;
+            done = this.stepOnce();
+            this.workspace.textContent = this.text;
+            if (done) {
+                this.workspace.classList.add('done');
+                break;
+            }
         }
         return done;
     }
