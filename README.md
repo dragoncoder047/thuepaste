@@ -94,7 +94,8 @@ Another tripping point occurs when the self-applicable rule `a::=aa` is added to
 flowchart LR
     a --> aa --> aaa
     a --> c --> d --> c
-    a --> b --> HALT
+    d --> b
+    a --> b
     aa --> ab --> aab
     aa --> ac --> ad --> ac --> aac --> aab
     ad --> aad --> aab
@@ -104,8 +105,8 @@ flowchart LR
     aaa --> aab --> aaab
     aaa --> aac --> aad --> aac --> aaac
     aaa --> aba --> aaba --> abba
-    aba --> abb --> bbb --> HALT
-    aba --> abaa --> bbaa --> bbaaa --> bbbaa --> bbbba --> bbbbb --> HALT
+    aba --> abb --> bbb
+    aba --> abaa --> bbaa --> bbaaa --> bbbaa --> bbbba --> bbbbb
     aaa --> aca --> ada --> aca --> acc --> acd --> add --> adc --> add --> acd --> acc
     ada --> aba
     acd --> acb
@@ -120,7 +121,7 @@ flowchart LR
 
 I didn't bother to draw any more once it got more than one screen tall!
 
-Of course, because the c-d-c-d loop can halt, the entire program can still halt, but it can also still balloon out to infinity with the `a`s. But the computer needs to figure out that - this is where the self-applicable property of `a::=aa` comes into play here. Avoiding that rule results in finding the c-d-c-d loops faster and determining it is unlikely to halt.
+Of course, because the c-d-c-d loop can halt, the entire program can still halt, but it can also still balloon out to infinity with the `a`s. But the computer needs to figure out that - this is where the self-applicable property of `a::=aa` comes into play here. Avoiding that rule results in finding the c-d-c-d-b loops faster and determining it is likely to halt, but still has a small chance that it will run infinitely.
 
 Now what?
 
