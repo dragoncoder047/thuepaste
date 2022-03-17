@@ -43,3 +43,7 @@ Another Turing machine. This is the 4-state 2-symbol busy beaver found [here](ht
 ## samples/boolfuck.t
 
 The first major undertaking I wrote in Thue. It simulates a dialect of the Boolfuck programming language. There is no `,` for user input, `;` for output outputs a literal `0` or `1` , and there is a `-` that will set the bit to 0 if it was 1 or leave it at zero if it was already 0. This program is also the first to take advantage of the regular expression rules to emulate an infinite number of similar rules using repititions.
+
+## samples/collatz.t
+
+This one simulates the cyclic tag system found [here](https://en.wikipedia.org/wiki/Tag_system#Example:_Computation_of_Collatz_sequences) to compute the Collatz sequence for 9. You can do any other number by starting with that many `a`s between the underscores. The unsolved nature of this is that it is not known whether any arbitrary number of `a`s will always wind up with `_a_` (that is, 1) at any point.
