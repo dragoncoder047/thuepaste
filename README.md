@@ -22,8 +22,6 @@ For all the nitty gritty about Thue, have a look at the [wikipedia article](http
 
 ## Does it halt?
 
-*I'm fully aware that the [halting problem](https://en.wikipedia.org/wiki/Halting_problem) is unsolvable. This is only an approximation to it.*
-
 The algorthm I use has changed considerably since I frist concieved it, and it now constitutes three different 'passes' which are all different approaches. Strangely, I thought of the 'third pass' first, then the second, then the first!
 
 ### First Pass: Cycle Detection
@@ -126,3 +124,10 @@ Of course, because the c-d-c-d loop can halt, the entire program can still halt,
 Now what?
 
 ***TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO***
+
+
+### ...The real solution
+
+Yes, I know that the [halting problem](https://en.wikipedia.org/wiki/Halting_problem) is unsolvable. This is only an approximation to it. But once you consider every possible thing that would affect the program, this is the 100% correct solution:
+
+[![xkcd: halting problem](https://imgs.xkcd.com/comics/halting_problem.png)](https://xkcd.com/1266)
