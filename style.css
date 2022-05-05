@@ -19,6 +19,10 @@
     word-break: break-all;
 }
 
+#thue pre {
+    line-height: 1.0;
+}
+
 header p a {
     color: var(--color-footer);
 }
