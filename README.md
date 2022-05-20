@@ -62,7 +62,7 @@ flowchart LR
     d --> b
 ```
 
-Now, there *is* a path out of the infinite loop. What is the chance of halting from state `d`? Each time around the loop, it has a 1/2 chance of halting (via `b`), and 1/2 chance of going around the loop again (via `c`). So the total chance of halting in this loop is 1/2 + 1/4 + 1/8 + 1/16 ... A little [numerical analysis](https://www.desmos.com/calculator/odzpdulihz) shows this series converges to 1. So our supposed infinite loop halts, and does so with certainty!
+Now, there *is* a path out of the infinite loop. What is the chance of halting from state `d`? Each time around the loop, it has a $\frac{1}{2}$ chance of halting (via `b`), and $\frac{1}{2}$ chance of going around the loop again (via `c`). So the total chance of halting in this loop is $\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\frac{1}{16}$ ... A little [numerical analysis](https://www.desmos.com/calculator/odzpdulihz) shows this series converges to 1. So our supposed infinite loop halts, and does so with certainty!
 
 Now how does the computer determine this? It looks for ways out of the loop - and since there is only one way out, it will always go that way. Boom.
 
@@ -124,7 +124,6 @@ Of course, because the c-d-c-d loop can halt, the entire program can still halt,
 Now what?
 
 ***TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO***
-
 
 ### ...The real solution
 
