@@ -4,6 +4,10 @@
 
 The classic Hello World program. Starts with a single `@`, which immediately triggers the single rule, to print `Hello World!` and delete the `@`. The program then immediately halts.
 
+## samples/99bottles.t
+
+This program, which I found in Yoel Matveyev's "Marthue" repository, prints out the lyrics to the classic "99 Bottles of Beer on the Wall" song.
+
 ## samples/truthmachine.t
 
 A truth machine. It will prompt you for a string. Upon recieving `0`, it will print that and halt. Upon recieving `1`, it will print `11111111111111.....` forever.
@@ -47,3 +51,7 @@ The first major undertaking I wrote in Thue. It simulates a dialect of the Boolf
 ## samples/collatz.t
 
 This one simulates the cyclic tag system found [here](https://en.wikipedia.org/wiki/Tag_system#Example:_Computation_of_Collatz_sequences) to compute the Collatz sequence for 9. You can do any other number by starting with that many asterisks between the underscores. The unsolved nature of this is that it is not known whether any arbitrary number of asterisks will always wind up with `_*_` (that is, 1) at any point.
+
+## samples/digitalroot.t
+
+This calculates the "digital root" of a number in base 10, that is, the number obtained by repeatedly summing the digits until the result is a one digit number. For example, the digital root of 6457 is 4 (6+4+5+7 = 22; 2+2 = 4), as are the digital roots of 5674 and 4576.
