@@ -3,7 +3,7 @@
 }
 
 #status.done, #thue pre.done {
-    color: lime;
+    color: green;
 }
 
 #status.computing {
@@ -11,7 +11,7 @@
 }
 
 #thue code {
-    border: 1px dashed lime;
+    border: 1px dashed green;
     padding: 0.5em;
     margin: 0.5em;
     display: block;
@@ -23,10 +23,6 @@
     line-height: 1.0;
 }
 
-header p a {
-    color: var(--color-footer);
-}
-
 textarea#code {
     border: 1px solid blue;
     padding: 1em;
@@ -35,6 +31,4 @@ textarea#code {
     min-width: 40%;
     resize: horizontal;
     overflow: auto;
-    color: white;
-    background: black;
 }
