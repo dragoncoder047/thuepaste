@@ -3,19 +3,14 @@
     <head>
         <link rel="stylesheet" href="style.css" />
         <title>Thuepaste</title>
-        <link rel="stylesheet" href="/static/css/main.css" />
-        <link rel="stylesheet" href="/static/css/theme.css" />
         <!--[if IE]>
             <meta http-equiv="refresh" content="0;url=/ie-is-not-supported.html" />
         <![endif]-->
     </head>
     <body spellcheck="false">
-        <header class="flex-column">
-            <p><a href="/">&lt;&lt; Return to dragoncoder047.github.io</a></p>
-            <h1>Thuepaste</h1>
-        </header>
         <main>
-            <p><a href="https://github.com/dragoncoder047/thuepaste/blob/main/README.md">about this page</a></p>
+            <h1>Thuepaste</h1>
+            <p><a href="/">site root</a> &endash; <a href="https://github.com/dragoncoder047/thuepaste/blob/main/README.md">about this page</a></p>
             <p>
                 Sample programs:
                 <select id="samples" name="samples">
@@ -42,7 +37,7 @@
                 <button id="run">Run</button>
                 <button id="step">Step</button>
                 <button id="halts">Does it halt?</button>
-                <label for="hyper">Hyperspeed<input id="hyper" name="hyper" type="checkbox" class="switch"></input></label> 
+                <label for="hyper">Hyperspeed<input id="hyper" name="hyper" type="checkbox"></input></label> 
             </p>
             <div id="thue"></div>
             <script src="thue.js"></script>
